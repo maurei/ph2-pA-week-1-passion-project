@@ -43,13 +43,13 @@ Belongs to account
 
 * users can (and must) logon to see anything. 
 * landing page after login
-⋅* shows top 5 positive and negative balances 
-⋅⋅* if normal member: show account information and list of all transactions
-⋅⋅* if treasurer: show control panel
-⋅⋅⋅* CRUD user
-⋅⋅⋅* list of all users with their balances
-⋅⋅⋅* show user specific manipulation list + account info
-⋅⋅⋅* manual manipulation form: update a users account
+	* shows top 5 positive and negative balances 
+		* if normal member: show account information and list of all transactions
+		* if treasurer: show control panel
+			* CRUD user
+			* list of all users with their balances
+			* show user specific manipulation list + account info
+			* manual manipulation form: update a users account
 
 I guess this is my MVP. Validations and and (validation) errors will be handled nicely, (some) tests will be written. Then I would like to implement some AJAX, And after that, all remaining time I will spend on making it pretty, but probably not after all of the above functionality is in there.
 
