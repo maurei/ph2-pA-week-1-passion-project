@@ -1,7 +1,7 @@
-### Passion Project A: FiscAres
+#Passion Project A: FiscAres
 About the name: it is a word joke, combining Fiscaat and Ares. Here, fiscaat is the dutch word for book keeping and Ares is the name of our fraternity.
 
-## Introduction the project
+## Introduction to the project
 
 Back home in Amsterdam, I'm with a fraternity. During our weekly gatherings, members of our fraternity don't have to bother about paying for their drinks. Instead, the treasurer of our fraternity pays a monthly bill using the fraternity's bank account, after which the costs are split up over the members depending on their attendance rate. Special events we participate in (such as proms, festivals and holidays) are also paid in advance in the same way. This means each member owes the fraternity a certain amount, which is accounted for by transferring a (mostly) fixed amount at the start of each month.
 
@@ -11,4 +11,45 @@ My goal is to digitalize the XSL file by creating a fraternity bank account appl
 
 For an MVP, I will only implement a feature that allows for manual manipulation of a specific account. Later on, I hope to add a feature that if provided with a monthly bill (.CSV), it automatically generates manipulations for all users. Also, I could implement features that allow user-to-user transfers (skipping the treasurer), a real payment feature (transfer money to the real fraternity accounts and have it automatically generate the corresponding manipulation in FiscAres) and many more.
 
+## About the design (approval needed)
+
+### Tables/models
+
+#### Users table
+
+* all personal info
+* acces level (member or treasurer)
+
+#### Accounts table
+
+Belongs to user
+Has many manipulations
+
+* account info
+* balans
+
+
+#### Manipulations
+
+Belongs to account
+
+* manipulation value
+* corresponding event
+* date of corresponding event
+* additional description
+
+
+### features
+
+* users can (and must) logon to see anything. 
+* landing page after login
+⋅* shows top 5 positive and negative balances 
+⋅⋅* if normal member: show account information and list of all transactions
+⋅⋅* if treasurer: show control panel
+⋅⋅⋅* CRUD user
+⋅⋅⋅* list of all users with their balances
+⋅⋅⋅* show user specific manipulation list + account info
+⋅⋅⋅* manual manipulation form: update a users account
+
+I guess this is my MVP. Validations and and (validation) errors will be handled nicely, (some) tests will be written. Then I would like to implement some AJAX, And after that, all remaining time I will spend on making it pretty, but probably not after all of the above functionality is in there.
 
