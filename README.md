@@ -23,10 +23,11 @@ For an MVP, I will only implement a feature that allows for manual manipulation 
 #### Accounts table
 
 Belongs to user
+
 Has many manipulations
 
 * account info
-* balans
+* balance
 
 
 #### Manipulations
