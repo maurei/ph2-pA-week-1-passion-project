@@ -1,0 +1,13 @@
+<div class = "container">
+
+	<h1> Manipulations to <%=@manipulations.sample.account.account_type%> </h1>
+
+		<% @manipulations.each_with_index do |manipulation, i| %>
+		<p>----------------</p>
+		<p>MANIPULATION NUMBER: <%= @manipulations.length - i %> 
+		<p><%= manipulation.action %>: <%= manipulation.amount %></p>
+		<p>Date of Event: <%= manipulation.issue_date %></p>
+		<p>Description: <%= manipulation.description %></p>
+		<br><br>
+		<% end %>
+</div>

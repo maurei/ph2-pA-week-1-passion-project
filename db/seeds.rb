@@ -17,8 +17,8 @@ maurits = {
 }
 
 fiscus = {
-      handle: "Ares Fiscus",
-      password: "ares",
+      handle: "Fiscus",
+      password: "fiscus",
       email: "ares@fiscus.nl",
       access_level: "superadmin",
       year: 2012
@@ -26,7 +26,25 @@ fiscus = {
 
 users = [arendo, maurits, fiscus]
 
-users.each do |user|
+users.map! do |user|
 	user = User.create(user)
-	Account.create(balance: 0.0, account_type: "PD", user_id: user.id)
+	Account.create(balancesu: 0.0, account_type: "PD", user_id: user.id)
+      user
+end
+
+users.pop
+
+users.each do |user|
+      user.accounts.each do |account_of_user|
+            account_of_user.manipulate(amount: 80.00, issue_date: "2015/01/01", description: "Periodieke overboeking", action: "deposit")
+      end
+end
+
+users.each do |user|
+      user.accounts.each do |account_of_user|
+            5.times do
+                  amount = rand(10.00...20.00).round(2)
+                  account_of_user.manipulate(amount: amount, issue_date: "2015/01/01", description: "Periodieke overboeking", action: "withdraw")
+            end
+      end
 end

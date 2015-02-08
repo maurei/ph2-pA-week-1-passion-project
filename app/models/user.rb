@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
   has_many :accounts  #multiple type of accounts available in future, e.g. prom, holiday and general account
 
 
+
+
   def password
     @password ||= Password.new(password_hash)
   end

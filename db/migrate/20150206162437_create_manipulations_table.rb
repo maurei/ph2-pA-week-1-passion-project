@@ -6,6 +6,7 @@ class CreateManipulationsTable < ActiveRecord::Migration
       t.date		:issue_date	#refers to date of event, not moment of manipulation      
       t.string 	:action  #withdrawal or deposit
       t.string  :description
+      
 			t.integer :account_id
 
       t.timestamps
@@ -13,3 +14,4 @@ class CreateManipulationsTable < ActiveRecord::Migration
     end
   end
 end
+

@@ -1,14 +1,6 @@
 get '/login' do
   redirect '/users' if session[:user_id]
-
-  <<-HTML
-  <h3>Login</h3>
-  <form action='/login' method='post'>
-    <input type='text' name='handle'>
-    <input type='password' name='password'>
-    <input type='submit' value='submit'>
-  </form>
-  HTML
+  erb :login
 end
 
 post '/login' do

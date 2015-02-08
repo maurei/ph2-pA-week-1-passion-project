@@ -88,3 +88,20 @@ Maybe, when making other types of accounts like a prom account, members start at
 		- maybe something that combines both in order to keep track of  (post mvp?)
 
 
+
+
+
+__END__
+v1
+A user (admin) can CRUD another user (member) 																					(functional, no UI)
+A user (admin) can manipulate accounts (+ and -)																				(functional, no UI)
+A user (admin) can supply additional data such as description, DoI to manipulation 			(functional, no UI)
+A user (admin) can undo manipulation 																										(functional, no UI)	
+A user (member) can log on to web interface of application															(functional, no UI)
+A user (member) can view manipulations of own account	on web application								(under dev)					
+
+v2
+A user (admin) can edit additional manipulation data
+A user (admin) can CRUD another user (member)
+A user (admin) can still see deleted users archive (post mvp)
+

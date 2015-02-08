@@ -1,0 +1,20 @@
+<div class = "container">
+	<% if @user.access_level == "superadmin" %>
+		  <h1>Welcome <%= @user.handle %></h1>
+		  <h1>Jesus christ, youre an admim!</h1>
+	<% else %>
+		  <h1>Welcome <%= @user.handle %></h1>
+	<% end %>
+	<br>
+	<br>
+	<h1> Your accounts: </h1>
+	<ul>
+		<% @user.accounts.each do |account| %>
+		<li> <a href="/accounts/<%= account.id %>/manipulations"> <%= account.account_type%></a>
+		<% end %>
+	</ul>
+	<form action='/logout' method='get'>
+	  <input type='submit' value='logout'>
+	</form>
+</div>
+
