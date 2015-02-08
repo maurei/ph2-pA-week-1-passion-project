@@ -28,7 +28,7 @@ users = [arendo, maurits, fiscus]
 
 users.map! do |user|
 	user = User.create(user)
-	Account.create(balancesu: 0.0, account_type: "PD", user_id: user.id)
+	Account.create(balance: 0.0, account_type: "PD", user_id: user.id) unless user.access_level == "superadmin"
       user
 end
 

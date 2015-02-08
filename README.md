@@ -97,11 +97,11 @@ A user (admin) can CRUD another user (member) 																					(functional, 
 A user (admin) can manipulate accounts (+ and -)																				(functional, no UI)
 A user (admin) can supply additional data such as description, DoI to manipulation 			(functional, no UI)
 A user (admin) can undo manipulation 																										(functional, no UI)	
-A user (member) can log on to web interface of application															(functional, no UI)
-A user (member) can view manipulations of own account	on web application								(under dev)					
+A user (admin) can edit additional manipulation data																		(functional, no UI)
+A user (admin) can CRUD another user (member)																						(functional, no UI)
 
-v2
-A user (admin) can edit additional manipulation data
-A user (admin) can CRUD another user (member)
-A user (admin) can still see deleted users archive (post mvp)
+
+A user (member) can log on to web interface of application															(functional, UI present)
+A user (member) can view manipulations of own account	on web application								(functional, UI present)					
+
 

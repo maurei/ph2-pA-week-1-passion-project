@@ -1,12 +1,12 @@
 require 'bcrypt'
 
 class User < ActiveRecord::Base
-  include BCrypt
+
 
   has_many :accounts  #multiple type of accounts available in future, e.g. prom, holiday and general account
 
 
-
+include BCrypt
 
   def password
     @password ||= Password.new(password_hash)

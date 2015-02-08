@@ -10,7 +10,7 @@
 	<h1> Your accounts: </h1>
 	<ul>
 		<% @user.accounts.each do |account| %>
-		<li> <a href="/accounts/<%= account.id %>/manipulations"> <%= account.account_type%></a>
+		<li> <a href="/users/<%=@user.id%>/accounts/<%= account.id %>/manipulations"> <%= account.account_type%></a>
 		<% end %>
 	</ul>
 	<form action='/logout' method='get'>

@@ -1,5 +1,5 @@
 get '/login' do
-  redirect '/users' if session[:user_id]
+  redirect "/users/#{session[:user_id]}" if session[:user_id]
   erb :login
 end
 
@@ -12,7 +12,7 @@ post '/login' do
   if user.password == params[:password]
     session[:user_id] = user.id
     session[:handle] = user.handle
-    redirect "/users"
+    redirect "/users/#{session[:user_id]}"
   else
     redirect '/login'
   end

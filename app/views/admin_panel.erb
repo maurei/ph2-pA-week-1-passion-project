@@ -1,0 +1,28 @@
+<div class = "container">
+	<h1>Jesus christ, you're an admin!</h1>
+	<h1>Welcome Treasurer</h1>
+<br>
+<br>
+</div>
+
+<div class = "container">
+	<h1>Admin Panel</h1>
+	<p> What would you like to do? <p>
+	<ul>
+		<li><a href="/users/new">Add members</a></li>
+		<li><a href="">Edit members</a></li>
+		<li><a href="">Delete members</a></li>
+		<li><a href="">Add manipulations</a></li>
+		<li><a href="">Edit manipulations</a></li>
+	</ul>
+
+
+	<ul>
+		<% @user.accounts.each do |account| %>
+		<li> <a href="/users/<%=@user.id%>/accounts/<%= account.id %>/manipulations"> <%= account.account_type%></a>
+		<% end %>
+	</ul>
+	<form action='/logout' method='get'>
+	  <input type='submit' value='logout'>
+	</form>
+</div>
