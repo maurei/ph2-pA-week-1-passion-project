@@ -54,3 +54,37 @@ Belongs to account
 
 I guess this is my MVP. Validations and and (validation) errors will be handled nicely, (some) tests will be written. Then I would like to implement some AJAX, And after that, all remaining time I will spend on making it pretty, but probably not after all of the above functionality is in there.
 
+
+
+---------------------------------------------------------------
+
+To do:
+
+* Auth controller
+	- standard stuff als creating user (mainly copy paste)
+	- setting up corresponding routes and pages for that
+	- add minimal conditional logic in terms of what page is to show next
+
+Assuming that associations are built already:
+
+Thought: 
+Everyone has an account, (maybe of several types - post mvp though). Only thing that is relevant is how much goes into account (member transfers money) and how much is withdrawn (treasurer makes invoice).
+
+DONT CARE ABOUT WHERE MONEY GOES
+
+DONT CARE ABOUT MORE THAN 1 ACCOUNT
+<!-- Where money goes to is not important for now.
+Maybe, when making other types of accounts like a prom account, members start at -100% and accountadmin starts at zero. all manipulations in favor of member gets mirrored to account-admins account
+ -->
+
+* Accounts 
+	- class methods that:
+		- decrease a users balance
+		- increase a balance
+		- mass edit?
+				- per year
+				- all
+				- custom
+		- maybe something that combines both in order to keep track of  (post mvp?)
+
+
