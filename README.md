@@ -8,12 +8,12 @@ Hi Sherif, hopefully you will like my passion project. Some instructions to get 
 * the usual bundle install stuff is needed. Also seed the db!
 * from then on, the app is available on localhost. (I decided to not build a terminal application like you said, because I felt I could learn more from making a web interface)
 * There are two types of users: a treasurer and normal members. Two demo accounts are included:
-		* Normal user
-			username: Maurits
-		 	password: Maurits
-		* Admin user
-			username: Treasurer
-			password: Treasurer
+	* Normal user
+		username: Maurits
+		password: Maurits
+	* Admin user
+		username: Treasurer
+		password: Treasurer
 * You can start by peeking around with Maurits. 
 * After that, you may log in as the Treasurer and add yourself to the system. (The admin is the only one who can create accounts). 
 * Check out models/user.rb to see what validations are built and give them a try (I didn't implement them anywhere else).
@@ -37,6 +37,33 @@ My goal is to digitalize the XLS file by creating a fraternity bank account appl
 
 For an MVP, I will only implement a feature that allows for manual manipulation of a specific account. Later on, I hope to add a feature that if provided with a monthly bill (.CSV), it automatically generates manipulations for all users. Also, I could implement features that allow user-to-user transfers (skipping the treasurer), a real payment feature (transfer money to the real fraternity accounts and have it automatically generate the corresponding manipulation in FiscAres) and many more.
 
+## About the design (approval needed)
+
+### Tables/models
+
+#### Users table
+
+* all personal info
+* acces level (member or treasurer)
+
+#### Accounts table
+
+Belongs to user
+
+Has many manipulations
+
+* account info
+* balance
+
+
+#### Manipulations
+
+Belongs to account
+
+* manipulation value
+* corresponding event
+* date of corresponding event
+* additional description
 
 
 
