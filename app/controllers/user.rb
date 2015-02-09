@@ -4,7 +4,6 @@ end
 
 get '/users' do
 	@users = User.where(access_level: "member")
-	p @users
 	erb :'users/users_index'
 end
 
@@ -14,6 +13,7 @@ end
 
 post '/users' do
 	member = Hash[params[:new_user].map{ |k,v| [k.to_sym,v] } ]
+	p member
   add member
 	redirect '/login'
 end
@@ -23,12 +23,13 @@ get '/users/:id' do
 	if @user.access_level == "member"
 		erb :'users/users_show'
 	else
+		@users = User.where(access_level: "member")
 		erb :'users/users_admin_show'
 	end
 end
 
-get '/users/:user_id/edit' do
-		@user = User.find(params[:user_id])
+get '/users/:user_id/edit' do |id|
+		@user = User.find(id)
 		erb :'users/users_edit'
 end
 

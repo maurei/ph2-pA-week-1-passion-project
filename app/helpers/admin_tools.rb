@@ -2,6 +2,7 @@ module AdminTools
 
 	def add(member)
 		member.merge!(access_level: "member") {|key, oldval, newval| oldval }
+		p member
 		User.create(member).accounts << Account.create(balance: 0.0, account_type: "PD")
 	end
 

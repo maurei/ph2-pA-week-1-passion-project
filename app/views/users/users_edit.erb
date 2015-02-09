@@ -7,7 +7,7 @@
     Year: <input type='text' name='edit_user[year]' value='<%=@user.year%>'>
     Email: <input type='text' name='edit_user[email]' value='<%=@user.email%>'>
 
-    <% if session[:id] == @user.id %>
+    <% if session[:user_id] == @user.id %>
     Pass: <input type='password' name='edit_user[password]'>
     <% end %>
 
@@ -18,7 +18,7 @@
 <div class="container">
   <h3>Delete Member</h3>
   <p> This can't be undone! Also, all associated accounts with their associates manipulations will be irreversibly deleted from the database.</p>
-    <form action='/users/<%=@user.id%>' method='post'>
+  <form action='/users/<%=@user.id%>' method='post'>
     <input type="hidden" name="_method" value="delete">
     <input type='submit' value='delete :-('>
   </form>

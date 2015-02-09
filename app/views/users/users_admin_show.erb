@@ -13,7 +13,15 @@
 		<li><a href="/users">Edit/Delete members</a></li>
 		<br>
 		<li><a href="/manipulations/new">Add custom manipulation</a></li>
-		<li><a href="">Edit manipulations</a></li>
+		<li>Edit manipulations of:
+		<form action='/manipulations/edit' method='post'>
+  		<select name='user_id'>
+   			<% @users.each do |user| %>
+					<option value="<%= user.id %>"> <%=user.handle%> </option>
+    		<% end %>
+  		</select><input type='submit' value='go'>
+  	</form>
+		</li>
 	</ul>
 
 
