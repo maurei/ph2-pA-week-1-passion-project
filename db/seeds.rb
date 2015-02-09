@@ -17,8 +17,8 @@ maurits = {
 }
 
 fiscus = {
-      handle: "Fiscus",
-      password: "fiscus",
+      handle: "Treasurer",
+      password: "Treasurer",
       email: "ares@fiscus.nl",
       access_level: "superadmin",
       year: 2012
