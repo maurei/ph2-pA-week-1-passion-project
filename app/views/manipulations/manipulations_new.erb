@@ -1,0 +1,40 @@
+<div class="container">
+  <h3>Custom Manipulation</h3>
+
+<form action='/manipulations' method='post'>
+  <p>Name:</p>
+  <select name='new_manipulation[user_id]'>
+    <% @users.each do |user| %>
+    <option value="<%= user.id %>"> <%=user.handle%> </option>
+    <% end %>
+  </select>
+
+  <p>Account:</p>
+  <select name='new_manipulation[account_type]'>
+    <option value="PD"> PD </option> 
+  </select>  
+
+  <p>Action:</p>
+  <select name='new_manipulation[action]'>
+    <option value="withdraw"> Withdrawal </option> 
+    <option value="deposit"> Deposit </option> 
+  </select>
+
+  <p>Amount:</p>
+  <input type='text' name='new_manipulation[amount]'>
+
+  <p>Event Date:</p>
+  <input type='text' name='new_manipulation[issue_date]'>
+
+  <p>Description:</p>
+  <input type='text' name='new_manipulation[description]'>
+
+  <p>
+  <input type='submit' value='submit'>
+</form>
+
+</div>
+
+
+
+     

@@ -13,7 +13,9 @@ class Account < ActiveRecord::Base
 	end
 
 	def manipulate(transaction)
-		method(transaction[:action].to_sym).call(transaction[:amount])
+		p transaction
+		method(transaction[:action].to_sym).call(transaction[:amount].to_f)
+		p "****************************************"
 		make_record_of transaction
 	end
 

@@ -1,0 +1,22 @@
+<div class = "container">
+	<br>
+	<br>
+	<h1> Select a user to edit: </h1>
+
+	<ul>
+		<% @users.each do |user| %>
+
+
+		<li> <a href="users/<%=user.id%>/edit"> <%=user.handle%></a></li>
+
+
+		<% end %>
+	</ul>
+</div>
+
+<div class = "container">
+	<form action='/logout' method='get'>
+	  <input type='submit' value='logout'>
+	</form>
+</div>
+

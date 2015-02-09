@@ -25,6 +25,8 @@ module AdminTools
 		manipulation.update(manipulation)
 	end
 
+	
+
 end
 
 helpers AdminTools
