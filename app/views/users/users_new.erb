@@ -8,3 +8,15 @@
     <input type='submit' value='submit'>
   </form>
   </div>
+<% if @errors %>
+  <div class="container">
+    <ul>
+      <h3>The following errors occured:</h3>
+      <% @errors.each do |field, message| %> 
+        <li><%= "#{field.to_s}: #{message.join(", ")}" %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+

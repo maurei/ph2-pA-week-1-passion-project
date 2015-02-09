@@ -8,12 +8,13 @@ get '/users' do
 end
 
 get '/users/new' do
+	@errors = session.delete(:errors)
+	p @errors
 	erb :'users/users_new'
 end
 
 post '/users' do
 	member = Hash[params[:new_user].map{ |k,v| [k.to_sym,v] } ]
-	p member
   add member
 	redirect '/login'
 end

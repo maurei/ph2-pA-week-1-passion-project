@@ -1,9 +1,15 @@
 module AdminTools
 
 	def add(member)
-		member.merge!(access_level: "member") {|key, oldval, newval| oldval }
-		p member
-		User.create(member).accounts << Account.create(balance: 0.0, account_type: "PD")
+		member.merge!(access_level: "member", password: nil) {|key, oldval, newval| oldval unless oldval == ""  } # to prevent empty string passwords. turning them into nil. cleaner way is to delete key/value pairs from members where value = "", but dont want to spend time on that.
+		new_user = User.new(member)
+		if new_user.valid?
+			new_user.save
+			new_user.accounts << Account.create(balance: 0.0, account_type: "PD")
+		else
+			session[:errors] = new_user.errors.messages
+			redirect back
+		end
 	end
 
 	def update_member(member)
