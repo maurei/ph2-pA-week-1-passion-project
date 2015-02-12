@@ -9,10 +9,8 @@ end
 
 post '/manipulations' do
 	manipulation = hashify(params[:new_manipulation])
-	user = User.find(manipulation.delete(:user_id))  # consider replacing these two lines w a scope @TODO
-	account = user.account
-	# ^^^ pre processing
-
+	account = Account.by_user_id(manipulation.delete(:user_id))
+	
 	account.manipulate(manipulation)
 	redirect '/login'
 end

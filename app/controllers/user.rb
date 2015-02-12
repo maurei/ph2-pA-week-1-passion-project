@@ -9,7 +9,6 @@ end
 
 get '/users/new' do
 	@errors = session.delete(:errors)
-	# p @errors
 	erb :'users/users_new'
 end
 
