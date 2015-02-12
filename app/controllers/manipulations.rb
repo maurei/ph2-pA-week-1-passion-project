@@ -18,7 +18,7 @@ post '/manipulations' do
 end
 
 
-get '/users/:id/accounts/:id/manipulations' do
+get '/manipulations' do #change
 	@user = User.find(session[:user_id])
 	@account = @user.account
 

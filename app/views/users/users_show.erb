@@ -4,7 +4,7 @@
 	<br>
 	<h1> Your accounts: </h1>
 	<p> you only have one, dumbass.. </p>
-	<a href="/users/<%=@user.id%>/accounts/<%= @user.account.id %>/manipulations"> Show your manipulations </a>
+	<a href="/manipulations"> Show your manipulations </a>
 	<br> Balance: <%= @user.account.balance %>
 	<form action='/logout' method='get'>
 	  <input type='submit' value='logout'>
