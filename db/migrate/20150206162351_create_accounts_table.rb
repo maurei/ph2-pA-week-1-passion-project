@@ -2,9 +2,7 @@ class CreateAccountsTable < ActiveRecord::Migration
   def change
   	create_table :accounts do |t|
 
-  		t.float 	:balance
-  		t.string	:account_type
-  		
+  		t.float 	:balance  		
   		t.integer :user_id
   		
   		t.timestamps

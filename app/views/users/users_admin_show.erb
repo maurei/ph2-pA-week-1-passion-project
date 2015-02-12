@@ -25,11 +25,6 @@
 	</ul>
 
 
-	<ul>
-		<% @user.accounts.each do |account| %>
-		<li> <a href="/users/<%=@user.id%>/accounts/<%= account.id %>/manipulations"> <%= account.account_type%></a>
-		<% end %>
-	</ul>
 	<form action='/logout' method='get'>
 	  <input type='submit' value='logout'>
 	</form>

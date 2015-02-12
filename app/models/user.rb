@@ -1,7 +1,7 @@
 require 'bcrypt'
 
 class User < ActiveRecord::Base
-  has_many :accounts  #multiple type of accounts available in future, e.g. prom, holiday and general account
+  has_one :account #multiple type of accounts available in future, e.g. prom, holiday and general account
 
   validates :handle, presence: true, uniqueness: true
   validates :password_hash, presence: true

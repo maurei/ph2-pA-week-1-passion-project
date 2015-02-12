@@ -3,13 +3,9 @@
 	<br>
 	<br>
 	<h1> Your accounts: </h1>
-	<ul>
-		<% @user.accounts.each do |account| %>
-		<li> <a href="/users/<%=@user.id%>/accounts/<%= account.id %>/manipulations"> <%= account.account_type%></a>
-		<br> Balance: <%= account.balance %>
-		</li>
-		<% end %>
-	</ul>
+	<p> you only have one, dumbass.. </p>
+	<a href="/users/<%=@user.id%>/accounts/<%= @user.account.id %>/manipulations"> Show your manipulations </a>
+	<br> Balance: <%= @user.account.balance %>
 	<form action='/logout' method='get'>
 	  <input type='submit' value='logout'>
 	</form>

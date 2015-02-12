@@ -17,7 +17,7 @@ module AdminTools
 			new_user = User.new(member)
 			if new_user.valid?
 				new_user.save
-				new_user.accounts << Account.create(balance: 0.0, account_type: "PD")  # @TODO see before_save
+				new_user.create_account(balance: 0.0)  # @TODO see before_save
 			else
 				session[:errors] = new_user.errors.messages
 				redirect back
@@ -31,11 +31,10 @@ module AdminTools
 
 		def delete_member(member)
 			user = User.find(member)
-			user.accounts.each do |acc|
-				acc.manipulations.each(&:destroy)  # @TODO see dependent: :destroy
-				acc.destroy
-			end
+			user.account.manipulations.each(&:destroy)
+			user.account.destroy
 			user.destroy
+
 		end
 	end
 

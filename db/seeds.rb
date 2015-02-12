@@ -50,27 +50,18 @@ fiscus = {
       year: 2012
 }
 
-users = [nick, mees, wensvoort, arendo, maurits, fiscus]
+users = [mees, wensvoort, arendo, maurits, fiscus]
 
 users.map! do |user|
 	user = User.create(user)
-	Account.create(balance: 0.0, account_type: "PD", user_id: user.id) unless user.access_level == "superadmin"
+      user.create_account(balance: 0.0) unless user.access_level == "superadmin"
       user
-end
+      end
 
 users.pop
 
-# users.each do |user|
-#       user.accounts.each do |account_of_user|
-#             account_of_user.manipulate(amount: 80.00, issue_date: "2015/01/01", description: "Periodieke overboeking", action: "deposit")
-#       end
-# end
+users.each do |user|
+       user.account.manipulate(amount: 80.00, issue_date: "2015/01/01", description: "Periodieke overboeking", action: "deposit")
+      end
 
-# users.each do |user|
-#       user.accounts.each do |account_of_user|
-#             5.times do
-#                   amount = rand(10.00...20.00).round(2)
-#                   account_of_user.manipulate(amount: amount, issue_date: "2015/01/01", description: "Periodieke overboeking", action: "withdraw")
-#             end
-#       end
-# end
+
