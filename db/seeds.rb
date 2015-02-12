@@ -16,6 +16,32 @@ maurits = {
       year: 2012
 }
 
+wensvoort = {
+      handle: "Nick Wensvoort",
+      password: "nick",
+      email: "nick@gmail.com",
+      access_level: "member",
+      year: 2014
+}
+
+brackel = {
+      handle: "Tom Brackel",
+      password: "tom",
+      email: "tom@gmail.com",
+      access_level: "member",
+      year: 2014
+}
+
+mees = {
+      handle: "Mees Koningswijk",
+      password: "mees",
+      email: "mees@gmail.com",
+      access_level: "member",
+      year: 2014
+}
+
+
+
 fiscus = {
       handle: "Treasurer",
       password: "Treasurer",
@@ -24,7 +50,7 @@ fiscus = {
       year: 2012
 }
 
-users = [arendo, maurits, fiscus]
+users = [nick, mees, wensvoort, arendo, maurits, fiscus]
 
 users.map! do |user|
 	user = User.create(user)
@@ -34,17 +60,17 @@ end
 
 users.pop
 
-users.each do |user|
-      user.accounts.each do |account_of_user|
-            account_of_user.manipulate(amount: 80.00, issue_date: "2015/01/01", description: "Periodieke overboeking", action: "deposit")
-      end
-end
+# users.each do |user|
+#       user.accounts.each do |account_of_user|
+#             account_of_user.manipulate(amount: 80.00, issue_date: "2015/01/01", description: "Periodieke overboeking", action: "deposit")
+#       end
+# end
 
-users.each do |user|
-      user.accounts.each do |account_of_user|
-            5.times do
-                  amount = rand(10.00...20.00).round(2)
-                  account_of_user.manipulate(amount: amount, issue_date: "2015/01/01", description: "Periodieke overboeking", action: "withdraw")
-            end
-      end
-end
+# users.each do |user|
+#       user.accounts.each do |account_of_user|
+#             5.times do
+#                   amount = rand(10.00...20.00).round(2)
+#                   account_of_user.manipulate(amount: amount, issue_date: "2015/01/01", description: "Periodieke overboeking", action: "withdraw")
+#             end
+#       end
+# end

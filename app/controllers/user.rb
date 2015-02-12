@@ -1,5 +1,5 @@
 before '/users/*' do 
-	redirect '/login' unless session[:user_id]
+	redirect '/login' unless session[:user_id] # redirect_unless_logged_in @TODO
 end
 
 get '/users' do
@@ -9,19 +9,19 @@ end
 
 get '/users/new' do
 	@errors = session.delete(:errors)
-	p @errors
+	# p @errors
 	erb :'users/users_new'
 end
 
 post '/users' do
-	member = Hash[params[:new_user].map{ |k,v| [k.to_sym,v] } ]
-  add member
+	# member = Hash[params[:new_user].map{ |k,v| [k.to_sym,v] } ]
+  add_member params[:new_user]
 	redirect '/login'
 end
 
 get '/users/:id' do
 	@user = User.find(session[:user_id])
-	if @user.access_level == "member"
+	if @user.access_level == "member"  # @TODO @user.is_member calls an instance method with the same logic
 		erb :'users/users_show'
 	else
 		@users = User.where(access_level: "member")

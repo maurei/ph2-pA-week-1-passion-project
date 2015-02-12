@@ -1,5 +1,5 @@
 get '/login' do
-  redirect "/users/#{session[:user_id]}" if session[:user_id]
+  redirect "/users/#{session[:user_id]}" if session[:user_id] # redirect_unless_logged_in @TODO
   erb :login
 end
 

@@ -1,5 +1,6 @@
 
 
+
 get '/manipulations/new' do
   @accounts = Account.all
   @users = User.where(access_level: "member")
@@ -8,10 +9,12 @@ end
 
 
 post '/manipulations' do
-	manipulation = Hash[params[:new_manipulation].map{ |k,v| [k.to_sym,v] } ]
-	user = User.find(manipulation.delete(:user_id))
+	manipulation = hashify(params[:new_manipulation])
+	user = User.find(manipulation.delete(:user_id))  # consider replacing these two lines w a scope @TODO
 	manipulation.delete(:account_type)
 	account = user.accounts[0]
+	# ^^^ pre processing
+
 	account.manipulate(manipulation)
 	redirect '/login'
 end
@@ -20,7 +23,8 @@ end
 get '/users/:id/accounts/:id/manipulations' do
 	@user = User.find(session[:user_id])
 	@account = @user.accounts.first
-	if !@account.manipulations.empty?
+
+	unless @account.manipulations.empty?
 		@manipulations = @account.manipulations
 		erb :'manipulations/manipulations_show'
 	else

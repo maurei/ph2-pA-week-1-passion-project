@@ -35,6 +35,8 @@ configure do
 
   # Set the views to
   set :views, File.join(Sinatra::Application.root, "app", "views")
+
+  # set :aclMEMBER, "member" @TODO  http://stackoverflow.com/a/4525933/4441216
 end
 
 

@@ -9,7 +9,10 @@ class User < ActiveRecord::Base
   validates :year, presence: true, numericality: { only_integer: true }
   validates :access_level, presence: true
 
-include BCrypt
+  # scope :by_access_level, ->(level){ where(access_level: level) }
+  # User.by_access_level("member")  @TODO
+
+  include BCrypt
 
   def password
     @password ||= Password.new(password_hash)
