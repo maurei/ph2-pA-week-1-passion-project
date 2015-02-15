@@ -1,56 +1,80 @@
 require_relative "../config/environment.rb"
 
 arendo = {
-      handle: "Arendo",
-      password: "Arendo",
-      email: "arendo@mail.com",
+      handle: "Arendo van Hulsbergen",
+      password: "arendo",
+      email: "aad@mail.com",
       access_level: "member",
       year: 2012
 }
 
 maurits = {
-      handle: "Maurits",
-      password: "Maurits",
-      email: "maurits@mail.com",
+      handle: "Maurits Moeys",
+      password: "maurits",
+      email: "mau@mail.com",
       access_level: "member",
       year: 2012
 }
 
-wensvoort = {
-      handle: "Nick Wensvoort",
-      password: "nick",
-      email: "nick@gmail.com",
+diederik = {
+      handle: "Diederik van der Hoek",
+      password: "diederik",
+      email: "died@mail.com",
       access_level: "member",
-      year: 2014
+      year: 2012
 }
 
-brackel = {
-      handle: "Tom Brackel",
+marijn = {
+      handle: "Marijn te Poel",
+      password: "marijn",
+      email: "marijn@mail.com",
+      access_level: "member",
+      year: 2012
+}
+
+haye = {
+      handle: "Haye Liefferink",
+      password: "haye",
+      email: "hayuh@mail.com",
+      access_level: "member",
+      year: 2012
+}
+
+steven = {
+      handle: "Steven Vogel",
+      password: "steven",
+      email: "vogel@mail.com",
+      access_level: "member",
+      year: 2012
+}
+
+jesse = {
+      handle: "Jesse Gilling",
+      password: "jesse",
+      email: "gilling@mail.com",
+      access_level: "member",
+      year: 2012
+}
+
+tom = {
+      handle: "Tom Schrikkema",
       password: "tom",
-      email: "tom@gmail.com",
+      email: "schrikkel@mail.com",
       access_level: "member",
-      year: 2014
-}
-
-mees = {
-      handle: "Mees Koningswijk",
-      password: "mees",
-      email: "mees@gmail.com",
-      access_level: "member",
-      year: 2014
+      year: 2012
 }
 
 
 
 fiscus = {
-      handle: "Treasurer",
-      password: "Treasurer",
-      email: "ares@fiscus.nl",
+      handle: "Fiscus",
+      password: "fiscus",
+      email: "fiscus@mail.com",
       access_level: "superadmin",
       year: 2012
 }
 
-users = [mees, wensvoort, arendo, maurits, fiscus]
+users = [maurits, diederik, tom, jesse, arendo, haye, steven, marijn]
 
 users.map! do |user|
 	user = User.create(user)
@@ -58,10 +82,10 @@ users.map! do |user|
       user
       end
 
-users.pop
+# users.pop
 
-users.each do |user|
-       user.account.manipulate(amount: 80.00, issue_date: "2015/01/01", description: "Periodieke overboeking", action: "deposit")
-      end
+# users.each do |user|
+#        user.account.manipulate(amount: 80.00, issue_date: "2015/01/01", description: "Periodieke overboeking", action: "deposit")
+#       end
 
 

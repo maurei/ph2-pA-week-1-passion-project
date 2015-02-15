@@ -37,8 +37,7 @@ post '/manipulations/edit' do
 end
 
 delete '/manipulations/:id' do |id|
-	manipulation = Manipulation.find(id)
-	manipulation.undo
+	Manipulation.find(id).destroy  #callback in model also reverses change in balance of corresponding account
 	redirect '/login'
 end
 
