@@ -13,7 +13,7 @@ $(document).ready(function() {
       this.$container.html('');
       var i, manipulations;
       manipulations = model.getManipulations();
-      user_data = model.getAllUsers()
+      user_data = model.getAllUsers();
       for(i = 0; i < manipulations.length; i++){
         this.$container.append('<div class="list-group-item" row_id="' + manipulations[i].row_id + '"><form class="form-inline"><div class="form-group"><label for="user_id">Name</label>'+populateSelect(user_data, manipulations[i]).prop("outerHTML")+'</div><div class="form-group"><label for="date">Date</label><input type="email" class="form-control" id="issue_date" placeholder="2014/01/30" value="' + manipulations[i].issue_date + '"></div><div class="form-group"><label for="description">Description</label><input type="text" class="form-control" id="description" placeholder="Description..." value="' + manipulations[i].description + '" size = 50></div><div class="form-group"><label for="amount">Amount</label><input type="text" class="form-control" id="amount" placeholder="$$$" value="' + manipulations[i].amount + '"></div></form></div>');
       }
@@ -40,7 +40,6 @@ $(document).ready(function() {
         //   _frontData = {row_id: index, validated: null, error_messages: null }
       	//   element._frontData = _frontData
         //   remove :handle out this data, no longer used in
-
           });
         	renderViewCallback();
         },
@@ -51,7 +50,7 @@ $(document).ready(function() {
    	}
 
     this.submitManipulations = function(event){
-      aj = $.ajax({
+      $.ajax({
         url: '/api/mass-edit',
         type: 'post',
         data: {content: JSON.stringify( manipulations ) },
@@ -72,10 +71,9 @@ $(document).ready(function() {
 
 
   function massEditController(model,view){
-    var generate = function(){
+    generate = function(){
       view.render(model);
     };
-    model.load(generate);
 
     var rowIsChanged = function(){
     	var $thisRow = $(this).closest('.list-group-item');
@@ -92,6 +90,7 @@ $(document).ready(function() {
 			})
     };
 
+    model.load(generate);
     view.$container.on('change', view.getSelectorTypes(), rowIsChanged)
     view.$submit.on('click', {callback: generate}, model.submitManipulations)
   };
