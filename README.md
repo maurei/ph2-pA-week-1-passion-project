@@ -1,6 +1,16 @@
 #Passion Project A: FiscAres
 About the name: it is a word joke, combining Fiscaat and Ares. Here, fiscaat is the dutch word for book keeping and Ares is the name of our fraternity.
 
+
+## New message, everything below this part is old
+
+A quick overview about what is new:
+* Refactored some stuff in the back end, the flow that creates manipulations and affects the associated accounts balance has changed.
+* The "import a bill" function is new (login as Fiscus, pass: fiscus). In the upload page there is a sample bill you can play around with.
+*  new migration added which is stepping stone to canceling a batch of manipulations as a whole
+*  some other functions that worked last time might be broke, such as custom manipulation. I didn't bother fixing it because I'm going to replace it with an ajax thing anyway.
+
+
 ## Instructions and message to Sherif
 
 Hi Sherif, hopefully you will like my passion project. Some instructions to get it going:
@@ -10,10 +20,10 @@ Hi Sherif, hopefully you will like my passion project. Some instructions to get 
 * There are two types of users: a treasurer and normal members. Two demo accounts are included:
 	* Normal user
 		username: Maurits
-		password: Maurits
+		password: maurits
 	* Admin user
-		username: Treasurer
-		password: Treasurer
+		username: Fiscus
+		password: fiscus
 * You can start by peeking around with Maurits. 
 * After that, you may log in as the Treasurer and add yourself to the system. (The admin is the only one who can create accounts). 
 * Check out models/user.rb to see what validations are built and give them a try (I didn't implement them anywhere else).
