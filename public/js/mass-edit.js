@@ -8,19 +8,32 @@ $(document).ready(function() {
     this.$container = $('.mass-edit-container');
     this.$submit = $('button');
 
-
     this.render = function(model){
       this.$container.html('');
       var i, manipulations;
       manipulations = model.getManipulations();
       user_data = model.getAllUsers();
       for(i = 0; i < manipulations.length; i++){
-        this.$container.append('<div class="list-group-item" row_id="' + manipulations[i].row_id + '"><form class="form-inline"><div class="form-group"><label for="user_id">Name</label>'+populateSelect(user_data, manipulations[i]).prop("outerHTML")+'</div><div class="form-group"><label for="date">Date</label><input type="email" class="form-control" id="issue_date" placeholder="2014/01/30" value="' + manipulations[i].issue_date + '"></div><div class="form-group"><label for="description">Description</label><input type="text" class="form-control" id="description" placeholder="Description..." value="' + manipulations[i].description + '" size = 50></div><div class="form-group"><label for="amount">Amount</label><input type="text" class="form-control" id="amount" placeholder="$$$" value="' + manipulations[i].amount + '"></div></form></div>');
+        var errors = manipulations[i].error_messages
+        $row = generateRow(manipulations, i)
+        this.$container.append( $row );
+        console.log(errors)
+        if (  errors !== undefined ){
+          $errorMessages = generateErrors(errors)
+          this.$container.find('div.list-group-item').last().after($errorMessages)
+        };
       }
+    };
+
+    this.successMessage = function(){
+    this.$container.html('')
+    this.$container.append(generateSuccessMessage())
+     return  $('button').html('Go back').wrap('<form action="/login" method="get"></div>')
     };
     this.getSelectorTypes = function(){
     	return 'select, input'
     };
+
   }
 
 
@@ -30,16 +43,13 @@ $(document).ready(function() {
 
     this.load = function(renderViewCallback){
      	$.ajax({
-        url: '/api/mass-edit',
+        url: '/fiscus/api/mass-edit',
         type: 'GET',
         success: function(data){
           all_users = data.user_data
           manipulations = data.manipulations
         	$.each(manipulations, function(index, element){
           element.row_id = index
-        //   _frontData = {row_id: index, validated: null, error_messages: null }
-      	//   element._frontData = _frontData
-        //   remove :handle out this data, no longer used in
           });
         	renderViewCallback();
         },
@@ -51,12 +61,18 @@ $(document).ready(function() {
 
     this.submitManipulations = function(event){
       $.ajax({
-        url: '/api/mass-edit',
+        url: '/fiscus/api/mass-edit',
         type: 'post',
         data: {content: JSON.stringify( manipulations ) },
         success: function(data){
-          manipulations = data
-          event.data.callback()
+          manipulations = []
+          if (data.length === 0){
+            event.data.done();
+          }
+          else{
+            manipulations = data;
+            event.data.response();
+          }
         },
         error: function(){console.log('Validation error')}
       });
@@ -85,14 +101,14 @@ $(document).ready(function() {
 			$.each(manipulations, function(index, element){
 				if ( element.row_id == rowId ){ 
 					element[field] = newValue
-				console.log(manipulations[index])
+				// console.log(manipulations[index])
 				};
 			})
     };
 
     model.load(generate);
     view.$container.on('change', view.getSelectorTypes(), rowIsChanged)
-    view.$submit.on('click', {callback: generate}, model.submitManipulations)
+    view.$submit.on('click', {response: generate, done: view.successMessage.bind(view) }, model.submitManipulations)
   };
 
   var massEditor = new massEditController(new manipulationsModel(), new manipulationsView());
@@ -100,25 +116,5 @@ $(document).ready(function() {
 
 
 
-/*
-
-to do for mass edit:
-
-* loading button: (post mvp but fun)
-	- initially display = hidden for mass-edit-container.
-	- as soon as line 30 renderViewCallback has finished, 
-		- remove loading button
-		- change display hidden to block
-
-
-* submit button that AJAX post's everything to sinatra,
-	- sinatra does validation 
-	- consider changing flow of how manipulations are add (start on manipulation end vs the way it happens now)
-	- return data should be failed-to-validate objects including error messages, which get displayed nicely
-	- if no errors, trigger sinatra redirect
-
-
-
-*/
 
 

@@ -47,7 +47,7 @@ module AdminTools
 		end
 
 		def hashify(manipulation_post_data)
-			Hash[manipulation_post_data.map{ |k,v| [k.to_sym,v] } ] # 
+			Hash[manipulation_post_data.map{ |k,v| [k.to_sym,v] } ]
 		end
 
 		def construct_object(post_manipulation)
@@ -65,8 +65,34 @@ module AdminTools
 		end
 
 	end
+
+	module BillConverter
+
+		def read_csv(source)
+			bill_row = []
+			CSV.foreach(source) do |row|
+			 bill_row << row
+			end
+			bill_row
+		end
+
+		def reformat_csv_row(row)
+			fields = [:user_id, :issue_date, :description, :amount, :action]
+			row = Hash[fields.zip(row)]
+			replace_handle_by_id(row)
+		end
+
+		def replace_handle_by_id(row)
+			user_id = User.find_by(handle: row[:user_id]).id
+			row[:user_id] = user_id
+			row
+		end
+
+	end
 	
 
 end
 
-helpers AdminTools::MemberManagement, AdminTools::ManipulationManagement
+helpers AdminTools::MemberManagement, AdminTools::ManipulationManagement, AdminTools::BillConverter
+
+

@@ -74,7 +74,7 @@ fiscus = {
       year: 2012
 }
 
-users = [maurits, diederik, tom, jesse, arendo, haye, steven, marijn]
+users = [maurits, diederik, tom, jesse, arendo, haye, steven, marijn, fiscus]
 
 users.map! do |user|
 	user = User.create(user)
