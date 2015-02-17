@@ -3,9 +3,9 @@
 # end
 
 
-# before '/*' do 
-#   authorize_or_redirect unless request.path_info == '/login' or request.path_info == '/logout'
-# end
+before '/*' do 
+  authorize_or_redirect unless request.path_info == '/login' or request.path_info == '/logout'
+end
 
 get '/' do
  redirect "/login"

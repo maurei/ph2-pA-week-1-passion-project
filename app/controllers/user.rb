@@ -12,7 +12,6 @@ get '/users' do
 end
 
 get '/users/new' do
-	p "KANKER KNAKER "
 	@errors = session.delete(:errors)
 	erb :'users/users_new'
 end
