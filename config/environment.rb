@@ -16,7 +16,6 @@ require 'active_record'
 require 'logger'
 require 'faker'
 require 'csv'
-
 require 'sinatra'
 require "sinatra/reloader" if development?
 
@@ -26,6 +25,8 @@ require 'erb'
 APP_ROOT = Pathname.new(File.expand_path('../../', __FILE__))
 
 APP_NAME = APP_ROOT.basename.to_s
+
+
 
 configure do
   # By default, Sinatra assumes that the root is the file that calls the configure block.
@@ -37,7 +38,7 @@ configure do
 
   # Set the views to
   set :views, File.join(Sinatra::Application.root, "app", "views")
-
+  set :member_routes, ['/manipulations', /\/users\/\d+\z/ ]
   # set :aclMEMBER, "member" @TODO  http://stackoverflow.com/a/4525933/4441216
 end
 
@@ -49,3 +50,4 @@ Dir[APP_ROOT.join('app', 'models', '*.rb')].each { |file| require file }
 
 # Set up the database and models
 require APP_ROOT.join('config', 'database')
+

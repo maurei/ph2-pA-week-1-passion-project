@@ -7,6 +7,7 @@ class CreateManipulationsTable < ActiveRecord::Migration
       t.string 	:action
       t.string  :description
       
+      t.integer :batch_id
 			t.integer :account_id
 
       t.timestamps

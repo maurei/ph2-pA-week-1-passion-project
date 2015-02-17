@@ -52,6 +52,7 @@ module AdminTools
 
 		def construct_object(post_manipulation)
 			pre_manipulation = reformat_post_data(post_manipulation)
+			pre_manipulation.merge!(batch_id: session[:batch_id])
 			manipulation = Manipulation.new(pre_manipulation)
 		end
 

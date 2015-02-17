@@ -1,8 +1,10 @@
-get "/fiscus/upload" do
+## all admin routes
+
+get "/treasurer/upload" do
   erb :upload
 end 
 
-post "/fiscus/upload" do 
+post "/treasurer/upload" do 
 	# return "Not a csv" unless is_a_csv?(params[:type])
 	bill_source = APP_ROOT.to_path+'/public/uploads/'+params[:bill][:name]
   File.open('public/uploads/'+params[:bill][:name], "w") do |f|
@@ -17,9 +19,9 @@ post "/fiscus/upload" do
   user_data = Hash[User.pluck(:id, :handle)]
   response = {manipulations: bill_data, user_data: user_data}.to_json
 
-  session[:batch_id] = BatchManipulation.create(batch_json: response).id
+  session[:batch_id] = Batch.create(bill_data: response).id
 
- 	redirect '/fiscus/mass-edit'
+ 	redirect '/treasurer/mass-edit'
 
 end
 

@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   validates :year, presence: true, numericality: { only_integer: true }
   validates :access_level, presence: true
 
+  
   # scope :by_access_level, ->(level){ where(access_level: level) }
   # User.by_access_level("member")  @TODO
 

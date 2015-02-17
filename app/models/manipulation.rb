@@ -1,5 +1,6 @@
 class Manipulation < ActiveRecord::Base
 	belongs_to :account
+	belongs_to :batch
 
 	after_create :change_balance
 	before_destroy :undo

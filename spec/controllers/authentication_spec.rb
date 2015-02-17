@@ -1,52 +1,91 @@
-require_relative '../spec_helper'
+require 'spec_helper'
+describe "logging in and out" do
 
-	describe "GET /" do
-		it "redirects to login" do
-			get '/' 
-			expect(last_response.location).to end_with('/login')
-		end
+	context 'no user logged in' do
+	 	let(:user){User.create(handle: "Maurits Moeys", password: "maurits", email: "mau@mail.com", access_level: "member", year: 2012)}
+	 	let(:params){ {handle: "Maurits Moeys", password: "maurits"} }
+			
+			describe "GET /" do
+				it "redirects to login" do
+					get '/' 
+					expect(last_response.location).to end_with('/login')
+				end
+			end
+
+			describe "GET /login" do
+				it "shows the login page" do
+					get '/login' 
+					expect(last_response.status).to eq(200)
+				end
+			end
+
+			describe "correct POST /login" do
+				it "redirects to /users page" do
+					post '/login', params
+					expect(last_response.location).to end_with('/users/1')
+				end
+			end
+
+			describe "bad POST /login" do
+				it "redirects to /login page when password is wrong" do
+					params = {handle: "Maurits Moeys", password: "maur123its"}
+					post '/login', params
+					expect(last_response.status).to eq(302)
+				end
+			end
+
+			describe "POST /login" do
+				it "redirects to /login page when username is wrong" do
+					params = {handle: "Mauri123ts Moeys", password: "maurits"}
+					post '/login', params
+					expect(last_response.location).to end_with('/login')
+				end
+			end
+
+			describe "POST /login" do
+				xit "returns status code 401" do
+					# still need to fix authorization in code.
+					params = {handle: "Maurits Moeys", password: "maur123its"}
+					post '/login', params
+					expect(last_response.location).to end_with('/login')
+				end
+			end
+
 	end
 
-	describe "GET /login" do
-		it "shows the login page" do
-			get '/login' 
-			expect(last_response.status).to eq(200)
+	context 'user logged in' do
+		let(:user_session){   { 'rack.session' => {:auth_user_id => user.id }} }
+			
+			describe "get /logout" do
+				it "redirects to login" do
+					get '/logout'
+					expect(last_response.location).to end_with('/login')
+				end
+			end
+
+			describe "get /logout" do
+				it "gives the redirect status code" do
+					get '/logout'
+					expect(last_response.status).to eq(302)
+				end
+			end
+
+			describe "get /users/*"	do
+				xit "returns unauthorized status code when accessing secret stuff" do
+					# still need to fix authorization in code.
+					get '/users/1'
+					expect(last_response.status).to eq(401)
+				end
+			end
+
 		end
-	end
 
-	describe "POST /login" do
-		it "redirects to /users page" do
-			User.create(handle: "Maurits Moeys", password: "maurits", email: "mau@mail.com", access_level: "member", year: 2012)
-			params = {handle: "Maurits Moeys", password: "maurits"}
-
-			post '/login', params
-			expect(last_response.location).to start_with('/users')
-		end
-	end
-
-	describe "POST /login" do
-		it "redirects to /login page" do
-			User.create(handle: "Maurits Moeys", password: "maurits", email: "mau@mail.com", access_level: "member", year: 2012)
-			params = {handle: "Maurits Moeys", password: "maur123its"}
-
-			post '/login', params
-			expect(last_response.location).to end_with('/login')
-		end
-	end
-
-	describe "POST /login" do
-		it "redirects to /login page" do
-			User.create(handle: "Maurits Moeys", password: "maurits", email: "mau@mail.com", access_level: "member", year: 2012)
-			params = {handle: "Mauri123ts Moeys", password: "maurits"}
-
-			post '/login', params
-			expect(last_response.location).to end_with('/login')
-		end
-	end
+end
 				
 
 
-end
+
+
 
 
 # it "should create a new post" do

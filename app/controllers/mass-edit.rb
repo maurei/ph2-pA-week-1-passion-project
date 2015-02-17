@@ -1,4 +1,5 @@
 require 'json'
+## all admin routes
 
 # User.first.accounts[0].manipulate(amount: 19.23, issue_date: "2015/01/01", description: "allemachtig wat prachtig", action: "deposit")
 # [
@@ -7,16 +8,16 @@ require 'json'
 # 	["16/12/14", Koningswijk, "withdraw", 78, "afbo slotfeest"],
 # ]
 
-get '/fiscus/mass-edit' do
+get '/treasurer/mass-edit' do
 	erb :mass_edit
 end
 
-get '/fiscus/api/mass-edit' do
+get '/treasurer/api/mass-edit' do
 		content_type :json
-		 	BatchManipulation.find( session.delete(:batch_id) ).batch_json
+		 	Batch.find( session[:batch_id] ).bill_data
 end
 
-post '/fiscus/api/mass-edit' do
+post '/treasurer/api/mass-edit' do
 
 	post_manipulations = JSON.parse(params[:content])
 

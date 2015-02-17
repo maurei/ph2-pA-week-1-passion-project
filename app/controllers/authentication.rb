@@ -1,3 +1,16 @@
+# error 301 do
+  
+# end
+
+
+# before '/*' do 
+#   authorize_or_redirect unless request.path_info == '/login' or request.path_info == '/logout'
+# end
+
+get '/' do
+ redirect "/login"
+end
+
 get '/login' do
   redirect "/users/#{session[:user_id]}" if session[:user_id] # redirect_unless_logged_in @TODO
   erb :login
@@ -22,3 +35,4 @@ get '/logout' do
   session.delete :user_id
   redirect '/login'
 end
+
