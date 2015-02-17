@@ -43,7 +43,7 @@ $(document).ready(function() {
 
     this.load = function(renderViewCallback){
      	$.ajax({
-        url: '/fiscus/api/mass-edit',
+        url: '/api/mass-edit',
         type: 'GET',
         success: function(data){
           all_users = data.user_data
@@ -61,7 +61,7 @@ $(document).ready(function() {
 
     this.submitManipulations = function(event){
       $.ajax({
-        url: '/fiscus/api/mass-edit',
+        url: '/api/mass-edit',
         type: 'post',
         data: {content: JSON.stringify( manipulations ) },
         success: function(data){

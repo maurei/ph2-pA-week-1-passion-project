@@ -8,16 +8,16 @@ require 'json'
 # 	["16/12/14", Koningswijk, "withdraw", 78, "afbo slotfeest"],
 # ]
 
-get '/treasurer/mass-edit' do
+get '/mass-edit' do
 	erb :mass_edit
 end
 
-get '/treasurer/api/mass-edit' do
+get '/api/mass-edit' do
 		content_type :json
 		 	Batch.find( session[:batch_id] ).bill_data
 end
 
-post '/treasurer/api/mass-edit' do
+post '/api/mass-edit' do
 
 	post_manipulations = JSON.parse(params[:content])
 

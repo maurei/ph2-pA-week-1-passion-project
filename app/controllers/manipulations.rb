@@ -15,13 +15,13 @@ end
 
 ## admin routes
 
-get '/treasurer/manipulations/new' do
+get '/manipulations/new' do
   @users = User.where(access_level: "member")
   erb :'manipulations/manipulations_new'
 end
 
 
-post '/treasurer/manipulations' do
+post '/manipulations' do
 	manipulation = hashify(params[:new_manipulation])
 	account = Account.by_user_id(manipulation.delete(:user_id))
 	
@@ -31,7 +31,7 @@ end
 
 
 
-post '/treasurer/manipulations/edit' do 
+post '/manipulations/edit' do 
 	@user = User.find(params[:user_id])
 	@manipulations =  @user.account.manipulations
 	@admin = User.find(session[:user_id])
@@ -39,7 +39,7 @@ post '/treasurer/manipulations/edit' do
 
 end
 
-delete '/treasurer/manipulations/:id' do |id|
+delete '/manipulations/:id' do |id|
 	Manipulation.find(id).destroy  #callback in model also reverses change in balance of corresponding account
 	redirect '/login'
 end

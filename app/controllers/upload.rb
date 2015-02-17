@@ -1,10 +1,10 @@
 ## all admin routes
 
-get "/treasurer/upload" do
+get "/upload" do
   erb :upload
 end 
 
-post "/treasurer/upload" do 
+post "/upload" do 
 	# return "Not a csv" unless is_a_csv?(params[:type])
 	bill_source = APP_ROOT.to_path+'/public/uploads/'+params[:bill][:name]
   File.open('public/uploads/'+params[:bill][:name], "w") do |f|
@@ -21,7 +21,7 @@ post "/treasurer/upload" do
 
   session[:batch_id] = Batch.create(bill_data: response).id
 
- 	redirect '/treasurer/mass-edit'
+ 	redirect '/mass-edit'
 
 end
 
