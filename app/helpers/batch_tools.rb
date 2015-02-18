@@ -33,6 +33,7 @@ module BatchTools
 	end
 
 	def add_batch_id_to(pre_manipulation)
+		p session[:batch_id]
 		pre_manipulation.merge!(batch_id: session[:batch_id])
 	end	
 
