@@ -14,11 +14,8 @@ gem 'thin'
 gem 'activesupport', '~>4.1'
 gem 'activerecord', '~>4.1'
 gem 'rake'
-gem 'faker'
 gem 'rest-client'
-gem 'shotgun'
 gem 'bcrypt'
-gem 'rspec'
 
 group :test do
   gem 'faker'

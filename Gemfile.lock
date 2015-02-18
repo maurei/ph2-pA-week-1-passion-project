@@ -61,8 +61,6 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.2.0)
     rspec-support (3.2.1)
-    shotgun (0.9)
-      rack (>= 1.0)
     shoulda-matchers (2.8.0)
       activesupport (>= 3.0.0)
     sinatra (1.4.5)
@@ -101,7 +99,6 @@ DEPENDENCIES
   rake
   rest-client
   rspec
-  shotgun
   shoulda-matchers
   sinatra
   sinatra-contrib
