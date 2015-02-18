@@ -63,7 +63,7 @@ $(document).ready(function() {
       $.ajax({
         url: '/api/batch',
         type: 'post',
-        data: {content: JSON.stringify( manipulations ) },
+        data: {data: JSON.stringify( manipulations ) },
         success: function(data){
           manipulations = []
           if (data.length === 0){

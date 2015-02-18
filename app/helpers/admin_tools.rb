@@ -56,20 +56,6 @@ module AdminTools
 			Hash[manipulation_post_data.map{ |k,v| [k.to_sym,v] } ]
 		end
 
-		def construct_object(post_manipulation)
-			pre_manipulation = reformat_post_data(post_manipulation)
-			pre_manipulation.merge!(batch_id: session[:batch_id])
-			manipulation = Manipulation.new(pre_manipulation)
-		end
-
-		def reformat_post_data(post_manipulation)
-			pre_object = hashify(post_manipulation)
-			account_id = Account.by_user_id(pre_object.delete(:user_id)).id
-			pre_object.merge!(account_id: account_id)
-			pre_object.delete(:row_id)
-			pre_object.delete(:error_messages)
-			pre_object
-		end
 
 	end
 
