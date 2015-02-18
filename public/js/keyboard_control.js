@@ -62,6 +62,7 @@ $(document).ready(function() {
     //   view.focusFirstField()
     // }, 1500);
    // view.focusFirstField()
+   // trigger view.focusFirstField() once in either checkKey or row generator
 
     view.$container.on('keydown', view.getSelectorTypes(), checkKey)
   };

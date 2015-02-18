@@ -34,21 +34,35 @@ $(document).ready(function() {
 
   }
 
+  function userModel(users){
+    
+
+  }
+
 
   function manipulationsModel(){
+
+    var blank_manipulation = {action: null, withdraw: null, amount: null, description: null, issue_date: null, user_id: null}
+
     var manipulations = [];
     var all_users = {}
+
 
     this.load = function(renderViewCallback){
      	$.ajax({
         url: '/api/batch/new',
         type: 'GET',
         success: function(data){
-          all_users = data.user_data
-          manipulations = data.manipulations
-        	$.each(manipulations, function(index, element){
-          element.row_id = index
-          });
+          all_users = data.user_data // extract this out in user model
+          if (data.manipulations === null){
+            manipulations.push(blank_manipulation)
+          }
+          else{
+            manipulations = data.manipulations
+            console.log(manipulations)
+          }
+          
+          addRowIdToManipulations()
         	renderViewCallback();
         },
         error: function(){
@@ -56,6 +70,12 @@ $(document).ready(function() {
         }
       });
    	}
+
+    var addRowIdToManipulations = function(){
+      $.each(manipulations, function(index, element){
+      element.row_id = index
+      });
+    }
 
     this.submitManipulations = function(event){
       $.ajax({
@@ -72,7 +92,7 @@ $(document).ready(function() {
             event.data.response();
           }
         },
-        error: function(){console.log('Validation error')}
+        error: function(){console.log('Something went wrong on in the backend while fetching failed manipulations')}
       });
     };
     this.getAllUsers = function(){
@@ -85,8 +105,23 @@ $(document).ready(function() {
 
 
   function massEditController(model,view){
-    generate = function(){
+    var generate = function(){
       view.render(model);
+    };
+
+    var checkForBatch = function(){
+      $.ajax({
+        url: '/api/batch/check',
+        type: 'GET',
+        success: function(data){
+          if (data === true){model.load(generate)}
+          else {
+            console.log("there is no bill, going to give you custom manipulation shizzle")
+            model.load(generate)
+          };
+        },
+        error: function(){console.log('For some reason, I can not check if there is a batch')}
+      });
     };
 
     var rowIsChanged = function(){
@@ -104,7 +139,10 @@ $(document).ready(function() {
 			})
     };
 
-    model.load(generate);
+
+    checkForBatch()
+
+
     view.$container.on('change', view.getSelectorTypes(), rowIsChanged)
     view.$submit.on('click', {response: generate, done: view.successMessage.bind(view) }, model.submitManipulations)
   };

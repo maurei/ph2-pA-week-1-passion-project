@@ -19,9 +19,9 @@ end
 get '/users/:user_id' do |id|
 	@user = User.find(id)
 	if @user.access_level == "member" 
-		
 		erb :'users/users_show'
 	else
+		close_current_batch
 		@users = User.where(access_level: "member")
 		erb :'users/users_admin_show'
 	end

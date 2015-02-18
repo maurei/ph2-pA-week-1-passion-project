@@ -38,9 +38,12 @@ module BatchTools
 	end	
 
 	def close_batch_if_empty(post_manipulations)
-	 session.delete(:batch_id) if post_manipulations.empty?
+	 close_current_batch if post_manipulations.empty?
 	end
 
+	def close_current_batch
+		session.delete(:batch_id)
+	end
 end
 
 helpers BatchTools
