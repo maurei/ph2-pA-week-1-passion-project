@@ -52,7 +52,7 @@ My goal is to digitalize the XLS file by creating a fraternity bank account appl
 			* add/delete new row button
 			* add all of year button
 			* add all members button
-	* WSAD-movement across textfields
+	* WSAD-movement across textfields   CHECK
 	* delete manipulations, two tabs:
 		* batches: all batches of manipulations
 			* show batch' nicely (post-mvp)
@@ -68,6 +68,33 @@ My goal is to digitalize the XLS file by creating a fraternity bank account appl
 
 * maintenance stuff 
 
+
+
+## manipulation management
+
+# todo
+* manipulation management
+	* update custom add:
+		* one row: ajax validation shit,
+		* one --> batch: (dont do this)
+			* add/delete new row button
+			* add all of year button
+			* add all members button
+
+
+# Design 
+
+* Menu option custom manipulations in admin panel
+* starts with single row and submit button
+		* add row button  --> correct & live map to JS model
+		* on every row: delete row button --> correct & live map to JS model
+		* ctrl + M pops up menu to auto generate rows:
+				* generate row for all users
+				* generate row for all users of specific year
+				* for both of those: 
+						* give prefill options
+						* think about how to generate with respect to JS model.
+		* submitting: processed manipulations in new batch.
 
 
 

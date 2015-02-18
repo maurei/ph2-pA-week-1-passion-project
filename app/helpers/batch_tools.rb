@@ -19,7 +19,7 @@ module BatchTools
 
 	def construct_object(post_manipulation)
 		pre_manipulation = reformat_post_data(post_manipulation)
-		add_batch_id_to(pre_manipulation)
+		add_to_batch(pre_manipulation)
 		manipulation = Manipulation.new(pre_manipulation)
 	end
 
@@ -32,7 +32,7 @@ module BatchTools
 		pre_object
 	end
 
-	def add_batch_id_to(pre_manipulation)
+	def add_to_batch(pre_manipulation)
 		p session[:batch_id]
 		pre_manipulation.merge!(batch_id: session[:batch_id])
 	end	
