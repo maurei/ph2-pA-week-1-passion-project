@@ -11,17 +11,17 @@ module AdminTools
 	module MemberManagement
 
 		def add_member(member)
-			default = {access_level: "member", password: nil}
-
-			member.merge!(default) {|key, oldval, newval| oldval unless oldval.empty?  } # to prevent empty string passwords. turning them into nil. cleaner way is to delete key/value pairs from members where value = "", but dont want to spend time on that.
+			default = {"access_level" => "member", "password" => nil}
+			prevent_empty_string_password(member)
 			new_user = User.new(member)
+
 			if new_user.valid?
 				new_user.save
-				new_user.create_account(balance: 0.0)  # @TODO see before_save
 			else
 				session[:errors] = new_user.errors.messages
 				redirect back
 			end
+			
 		end
 
 		def update_member(member)
@@ -36,6 +36,12 @@ module AdminTools
 			user.destroy
 
 		end
+
+		def prevent_empty_string_password(new_member)
+			default = {"access_level" => "member", "password" => nil}
+			new_member.merge!(default) {|field, old_value, new_value| old_value unless old_value == ""  }
+		end
+
 	end
 
 	module ManipulationManagement
@@ -67,33 +73,9 @@ module AdminTools
 
 	end
 
-	module BillConverter
-
-		def read_csv(source)
-			bill_row = []
-			CSV.foreach(source) do |row|
-			 bill_row << row
-			end
-			bill_row
-		end
-
-		def reformat_csv_row(row)
-			fields = [:user_id, :issue_date, :description, :amount, :action]
-			row = Hash[fields.zip(row)]
-			replace_handle_by_id(row)
-		end
-
-		def replace_handle_by_id(row)
-			user_id = User.find_by(handle: row[:user_id]).id
-			row[:user_id] = user_id
-			row
-		end
-
-	end
 	
-
 end
 
-helpers AdminTools::MemberManagement, AdminTools::ManipulationManagement, AdminTools::BillConverter
+helpers AdminTools::MemberManagement, AdminTools::ManipulationManagement
 
 

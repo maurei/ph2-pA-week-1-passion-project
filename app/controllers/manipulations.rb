@@ -10,6 +10,7 @@ end
 get '/manipulations' do 
 	@user = User.find(session[:user_id])
 	@account = @user.account
+
 	return "you have no account" unless @account
 
 	unless @account.manipulations.empty?
@@ -18,6 +19,7 @@ get '/manipulations' do
 	else
 		p "no manipulations show"
 	end
+	
 end
 
 

@@ -22,10 +22,8 @@ class Manipulation < ActiveRecord::Base
 	end
 
 	def inverse(operation)
-
 		return :withdraw if operation == "deposit"
 		return :deposit  if operation == "withdraw"
-
 	end
 
 end

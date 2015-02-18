@@ -1,4 +1,5 @@
 require 'json'
+
 ## all admin routes
 
 # User.first.accounts[0].manipulate(amount: 19.23, issue_date: "2015/01/01", description: "allemachtig wat prachtig", action: "deposit")
@@ -8,16 +9,36 @@ require 'json'
 # 	["16/12/14", Koningswijk, "withdraw", 78, "afbo slotfeest"],
 # ]
 
-get '/mass-edit' do
-	erb :mass_edit
+get "/batch/upload" do
+  erb :'batches/upload'
+end 
+
+post "/batch/upload" do 
+
+
+
+  user_data = Hash[User.pluck(:id, :handle)]
+  response = {manipulations: parse_bill, user_data: user_data}.to_json
+
+  session[:batch_id] = Batch.create(bill_data: response).id
+
+ 	redirect '/batch/new'
+
 end
 
-get '/api/mass-edit' do
+
+
+get '/batch/new' do
+	erb :'batches/edit_batch'
+end
+
+get '/api/batch/new' do
+
 		content_type :json
 		 	Batch.find( session[:batch_id] ).bill_data
 end
 
-post '/api/mass-edit' do
+post '/api/batch' do
 
 	post_manipulations = JSON.parse(params[:content])
 

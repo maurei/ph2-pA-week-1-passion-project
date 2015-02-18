@@ -11,7 +11,7 @@ arendo = {
 maurits = {
       handle: "Maurits Moeys",
       password: "maurits",
-      email: "mau@mail.com",
+      email: "maurits.moeys@gmail.com",
       access_level: "member",
       year: 2012
 }
@@ -76,11 +76,7 @@ fiscus = {
 
 users = [maurits, diederik, tom, jesse, arendo, haye, steven, marijn, fiscus]
 
-users.map! do |user|
-	user = User.create(user)
-      user.create_account(balance: 0.0) unless user.access_level == "superadmin"
-      user
-      end
+users.each {|x| User.create(x) }
 
 # users.pop
 
