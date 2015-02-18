@@ -31,15 +31,22 @@ get '/api/batch/new' do
 	if session[:batch_id]
 		manipulations = JSON.parse( Batch.find( session[:batch_id] ).bill_data )
 	end	
-	user_data = Hash[User.pluck(:id, :handle)]
+	# user_data = Hash[User.pluck(:id, :handle)]
 
 	content_type :json
-	response = {manipulations: manipulations, user_data: user_data}.to_json
+ #	response = {manipulations: manipulations, user_data: user_data}.to_json
+	response = {manipulations: manipulations}.to_json
 end
 
 get '/api/batch/check' do 
 	content_type :json
 	 (!!session[:batch_id]).to_json
+end
+
+get '/api/batch/users' do 
+	user_data = Hash[User.pluck(:id, :handle)]
+	content_type :json
+	 {user_data: user_data}.to_json
 end
 
 post '/api/batch' do

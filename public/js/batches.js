@@ -2,20 +2,20 @@ $(document).ready(function() {
 // "use strict";
 
 
-  function manipulationsView(){
-    this.$container = $('.mass-edit-container');
-    this.$submit = $('button');
+function manipulationsView(){
+  this.$container = $('.mass-edit-container');
+  this.$submit = $('button');
 
-    this.render = function(model){
-      this.$container.html('');
-      var i, manipulations;
-      manipulations = model.getManipulations();
-      user_data = model.getAllUsers();
-      for(i = 0; i < manipulations.length; i++){
-        var errors = manipulations[i].error_messages
-        $row = generateRow(manipulations, i)
-        this.$container.append( $row );
-        // console.log(errors)
+  this.render = function(model, userModel){
+    this.$container.html('');
+    var i, manipulations;
+    manipulations = model.getManipulations();
+  
+    user_data = userModel.getAllUsers();
+    for(i = 0; i < manipulations.length; i++){
+      var errors = manipulations[i].error_messages
+      $row = generateRow(manipulations, i)
+      this.$container.append( $row );
         if (  errors !== undefined ){
           $errorMessages = generateErrors(errors)
           this.$container.find('div.list-group-item').last().after($errorMessages)
@@ -24,9 +24,9 @@ $(document).ready(function() {
     };
 
     this.successMessage = function(){
-    this.$container.html('')
-    this.$container.append(generateSuccessMessage())
-     return  $('button').html('Go back').wrap('<form action="/login" method="get"></div>')
+      this.$container.html('')
+      this.$container.append(generateSuccessMessage())
+      return  $('button').html('Go back').wrap('<form action="/login" method="get"></div>')
     };
     this.getSelectorTypes = function(){
     	return 'select, input'
@@ -34,8 +34,27 @@ $(document).ready(function() {
 
   }
 
-  function userModel(users){
-    
+  function userModel(){
+    var all_users = {};
+
+    this.load = function(){
+
+      $.ajax({
+        url: '/api/batch/users',
+        type: 'GET',
+        success: function(data){
+          all_users = data.user_data
+        },
+        error: function(){
+          console.log('Can not fetch the users from the API')
+        }
+      });
+
+    };
+
+    this.getAllUsers = function(){
+      return all_users
+    };
 
   }
 
@@ -45,15 +64,13 @@ $(document).ready(function() {
     var blank_manipulation = {action: null, withdraw: null, amount: null, description: null, issue_date: null, user_id: null}
 
     var manipulations = [];
-    var all_users = {}
 
 
     this.load = function(renderViewCallback){
-     	$.ajax({
+      $.ajax({
         url: '/api/batch/new',
         type: 'GET',
         success: function(data){
-          all_users = data.user_data // extract this out in user model
           if (data.manipulations === null){
             manipulations.push(blank_manipulation)
           }
@@ -63,17 +80,17 @@ $(document).ready(function() {
           }
           
           addRowIdToManipulations()
-        	renderViewCallback();
+          renderViewCallback();
         },
         error: function(){
         	console.log('Error while fetching manipulations from imported bill')
         }
       });
-   	}
+    }
 
     var addRowIdToManipulations = function(){
       $.each(manipulations, function(index, element){
-      element.row_id = index
+        element.row_id = index
       });
     }
 
@@ -95,19 +112,21 @@ $(document).ready(function() {
         error: function(){console.log('Something went wrong on in the backend while fetching failed manipulations')}
       });
     };
-    this.getAllUsers = function(){
-      return all_users;
-    }
+
     this.getManipulations = function(){
       return manipulations;
     }
   }
 
 
-  function massEditController(model,view){
+  function massEditController(model,userModel,view){
+
+    userModel.load()
+
     var generate = function(){
-      view.render(model);
+      view.render(model, userModel);
     };
+
 
     var checkForBatch = function(){
       $.ajax({
@@ -115,40 +134,39 @@ $(document).ready(function() {
         type: 'GET',
         success: function(data){
           if (data === true){model.load(generate)}
-          else {
-            console.log("there is no bill, going to give you custom manipulation shizzle")
-            model.load(generate)
-          };
-        },
-        error: function(){console.log('For some reason, I can not check if there is a batch')}
-      });
+            else {
+              console.log("there is no bill, going to give you custom manipulation shizzle")
+              model.load(generate)
+            };
+          },
+          error: function(){console.log('For some reason, I can not check if there is a batch')}
+        });
     };
 
     var rowIsChanged = function(){
     	var $thisRow = $(this).closest('.list-group-item');
     	var rowId = $thisRow.attr('row_id');
-			var manipulations = model.getManipulations()
-      var newValue = $(this).val()
-    	var field = $(this).attr('id');
+     var manipulations = model.getManipulations()
+     var newValue = $(this).val()
+     var field = $(this).attr('id');
 
-			$.each(manipulations, function(index, element){
-				if ( element.row_id == rowId ){ 
-					element[field] = newValue
-				// console.log(manipulations[index])
-				};
-			})
-    };
-
-
-    checkForBatch()
+     $.each(manipulations, function(index, element){
+      if ( element.row_id == rowId ){ 
+       element[field] = newValue
+      };
+    })
+   };
 
 
-    view.$container.on('change', view.getSelectorTypes(), rowIsChanged)
-    view.$submit.on('click', {response: generate, done: view.successMessage.bind(view) }, model.submitManipulations)
-  };
+   checkForBatch()
 
 
-  var massEditor = new massEditController(new manipulationsModel(), new manipulationsView() );
+   view.$container.on( 'change', view.getSelectorTypes(), rowIsChanged)
+   view.$submit.on( 'click', {response: generate, done: view.successMessage.bind(view) }, model.submitManipulations )
+ };
+
+
+ var massEditor = new massEditController(new manipulationsModel(), new userModel(), new manipulationsView() );
 
 })
 
