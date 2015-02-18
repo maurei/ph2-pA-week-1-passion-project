@@ -2,8 +2,6 @@ $(document).ready(function() {
 // "use strict";
 
 
-
-
   function manipulationsView(){
     this.$container = $('.mass-edit-container');
     this.$submit = $('button');
@@ -111,10 +109,78 @@ $(document).ready(function() {
     view.$submit.on('click', {response: generate, done: view.successMessage.bind(view) }, model.submitManipulations)
   };
 
-  var massEditor = new massEditController(new manipulationsModel(), new manipulationsView());
+
+  var massEditor = new massEditController(new manipulationsModel(), new manipulationsView() );
+
+
+
+
+
+ // keyboard stuff below here, mass edit stuff above this line.
+  function keyBoardViewer(){
+    this.allFields = function(){
+      return $('div > select, input')
+    };
+    this.labelCurrentFocus = function(){
+      $(document.activeElement).attr('active','true')
+    };
+    this.getSelectorTypes = function(){
+      return 'select, input'
+    };
+    this.$container = $('.mass-edit-container')
+
+    this.changeFocus = function(newField){
+      newField.focus()
+    }
+
+  };
+  
+
+  function keyBoardController(view){
+    var keyMapper = {37: 1, 38: 4, 39: -1, 40: -4}
+
+    var checkKey = function(event){
+      if (keyMapper.hasOwnProperty(event.which)){
+        changeField(event.which)
+      }
+    }
+
+    var changeField = function(key){
+      event.preventDefault()
+      $fields = view.allFields()
+      var activeIndex = findActiveIndex($fields)
+      $newField = $fields.eq( activeIndex - displacement(key) )
+      view.changeFocus($newField)
+    };
+
+    var findActiveIndex = function(fields){
+      view.labelCurrentFocus()
+      var indexMatch;
+      $.map(fields, function(element, index){
+        if ($(element).attr('active') == 'true' ){
+          $(element).removeAttr('active')
+          indexMatch = index
+        };
+      })
+      return indexMatch
+    }
+
+    var displacement = function(key){
+      return keyMapper[key]
+    }
+    
+
+    view.$container.on('keydown', view.getSelectorTypes(), checkKey)
+  };
+
+
+  var keyBoardControl = new keyBoardController(new keyBoardViewer())
 })
 
-
+// left    37
+// up      38
+// right   39 
+// down    40
 
 
 

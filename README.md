@@ -29,11 +29,7 @@ Hi Sherif, hopefully you will like my passion project. Some instructions to get 
 * Check out models/user.rb to see what validations are built and give them a try (I didn't implement them anywhere else).
 * Then try to mess around with the tools in the Admin Panel and see how they affect the member's environment.
 
-### Some notes about the code
 
-Honestly, I'm not very happy with the end result. Time is running out, I need to save some energy for upcoming week so I decided not to rabbit hole too much on most stuff. I'm mostly not happy about the routes. 
-
-It felt very counter intuitive to stick to the RESTful convention at some points. For example, when editting a manipulation, I wanted to first show a list of users to select whose transactions you wanted to mess with. But according to RESTful routing, that page should be /users. But I already had that route with different variables in them for editting users, so I would either have to merge those two pages in a clever way (doable but I didnt want to), or avoid using a restful route, which is what I did. Probably, there is a correct RESTFul way to do it, but seem to not be comfortable with using the flexibilty of the RESTful routing convention. So yeah, I think my routing is a bit of a mess.
 
 
 
@@ -45,35 +41,33 @@ To keep this maintainable, everybody has a fraternity “bank account”, which 
 
 My goal is to digitalize the XLS file by creating a fraternity bank account application that allows the users to logon and real-time view their balance and all manipulations. Here, the treasurer will have administrative rights, which is to say he can CRUD all users, bank accounts and manipulations. 
 
-For an MVP, I will only implement a feature that allows for manual manipulation of a specific account. Later on, I hope to add a feature that if provided with a monthly bill (.CSV), it automatically generates manipulations for all users. Also, I could implement features that allow user-to-user transfers (skipping the treasurer), a real payment feature (transfer money to the real fraternity accounts and have it automatically generate the corresponding manipulation in FiscAres) and many more.
-
-## About the design (approval needed)
-
-### Tables/models
-
-#### Users table
-
-* all personal info
-* acces level (member or treasurer)
-
-#### Accounts table
-
-Belongs to user
-
-Has many manipulations
-
-* account info
-* balance
 
 
-#### Manipulations
+## Note to self (to-do)
 
-Belongs to account
+* manipulation management
+	* update custom add:
+		* one row: ajax validation shit,
+		* one --> batch: (dont do this)
+			* add/delete new row button
+			* add all of year button
+			* add all members button
+	* WSAD-movement across textfields
+	* delete manipulations, two tabs:
+		* batches: all batches of manipulations
+			* show batch' nicely (post-mvp)
+			* undo whole batch
+			* undo specific manipulations
+		* users: delete user specific manipulations
+			* show 
+* automailer
+	* after batch completion send everyone whos balance was affected a mail with previous and current balance
+		* how to calculate previous balance since manipulations are being pushed continiously?
+	* notify switch that turns this function on and off
+	* (post mvp) don't mail me list
 
-* manipulation value
-* corresponding event
-* date of corresponding event
-* additional description
+* maintenance stuff 
+
 
 
 
