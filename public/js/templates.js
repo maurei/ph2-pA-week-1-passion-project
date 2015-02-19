@@ -11,8 +11,8 @@ var populateSelect = function(all_users, manipulation){
 	return $selectList.append(option);
 }
 
-var generateRow = function(manipulations, i){
-  return $('<div class="list-group-item" row_id="' + manipulations[i].row_id + '"><form class="form-inline"><div class="form-group"><label for="user_id">Name</label>'+populateSelect(user_data, manipulations[i]).prop("outerHTML")+'</div><div class="form-group"><label for="date">Date</label><input type="email" class="form-control" id="issue_date" placeholder="2014/01/30" value="' + manipulations[i].issue_date + '"></div><div class="form-group"><label for="description">Description</label><input type="text" class="form-control" id="description" placeholder="Description..." value="' + manipulations[i].description + '" size = 50></div><div class="form-group"><label for="amount">Amount</label><input type="text" class="form-control" id="amount" placeholder="$$$" value="' + manipulations[i].amount + '"></div></form></div>')
+var generateRow = function(manipulation){
+  return $('<div class="list-group-item" row_id="' + manipulation.row_id + '"><form class="form-inline"><div class="form-group"><label for="user_id">Name</label>'+populateSelect(user_data, manipulation).prop("outerHTML")+'</div><div class="form-group"><label for="date">Date</label><input type="email" class="form-control" id="issue_date" placeholder="2014/01/30" value="' + manipulation.issue_date + '"></div><div class="form-group"><label for="description">Description</label><input type="text" class="form-control" id="description" placeholder="Description..." value="' + manipulation.description + '" size = 50></div><div class="form-group"><label for="amount">Amount</label><input type="text" class="form-control" id="amount" placeholder="$$$" value="' + manipulation.amount + '"></div></form></div>')
 };
 
 var generateErrors = function(errors){
@@ -28,8 +28,57 @@ var generateSuccessMessage = function(){
 	return $('<div class="alert alert-success" role="alert">All manipulations have been successfully processed</div>');
 };
 
+var generatePanelContent = function(){
+	console.log(arguments)
+	return $('<ul class="nav nav-tabs"><li role="presentation" id="smart-all-users"><a href="#">All users</a></li><li role="presentation" id="smart-per-year"><a href="#">Users selected by year</a></li></ul><div class="panel-body">Choose an option</div>')
+};	
+
+var allUsersTab = function(){
+
+	return $('<p>Prefill options:</p><form class="form-inline"><div class="form-group"><label for="date">Date</label><input type="email" class="form-control" id="issue_date" placeholder="2014/01/30"></div><div class="form-group"><label for="description">Description</label><input type="text" class="form-control" id="description" placeholder="Description..."size = 50></div><div class="form-group"><label for="amount">Amount</label><input type="text" class="form-control" id="amount" placeholder="$$$"></div></form><br><br><button type="button" class="btn btn-default" id="all-users-deploy"> Deploy! </button>')
+};
+
+var perYearTab = function(){
+
+	return $('<p>Prefill options:</p><form class="form-inline"><div class="form-group"><label for="date">Date</label><input type="email" class="form-control" id="issue_date" placeholder="2014/01/30"></div><div class="form-group"><label for="description">Description</label><input type="text" class="form-control" id="description" placeholder="Description..."size = 50></div><div class="form-group"><label for="amount">Amount</label><input type="text" class="form-control" id="amount" placeholder="$$$"></div></form><div class="checkbox"><label><input type="checkbox"> 2014</label><label><input type="checkbox" id="testcheck"> 2013</label><label><input type="checkbox"> 2012</label><label><input type="checkbox"> 2011</label><label><input type="checkbox"> 2010</label></div><button type="button" class="btn btn-default" id="per-year-deploy"> Deploy! </button>')
+
+};
 
 
+// var array = $("input[type=checkbox]")
+// for (var i = 0; i < array.length; i++){
+//  console.log(array.eq(i).prop("checked")) }
+
+// $('input:checkbox:checked')
+
+// <form class="form-inline">
+// 	<div class="form-group">
+// 		<label for="date">Date</label>
+// 		<input type="email" class="form-control" id="issue_date" placeholder="2014/01/30">
+// 	</div>
+
+// 	<div class="form-group">
+// 	<label for="description">Description</label>
+// 	<input type="text" class="form-control" id="description" placeholder="Description..."size = 50>
+// 	</div>
+
+// 	<div class="form-group">
+// 	<label for="amount">Amount</label>
+// 	<input type="text" class="form-control" id="amount" placeholder="$$$">
+// </div>
+// </form>
+
+
+/*
+'<p>Generator rows for:</p>
+<button type="button" class="btn btn-default" id="smart-add-all-users">All users</button><button type="button" class="btn btn-default" id="smart-add-per-year">Selected years</button>
+<div id="smart-panel-content">
+</div>
+<button type="button" class="btn btn-default" id="smart-submit">Generate</button>
+'
+
+
+*/
 
 /*
 <div class="list-group-item" user-id="' + manipulations[i].user_id + '">

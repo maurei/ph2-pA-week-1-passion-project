@@ -45,6 +45,14 @@ end
 
 get '/api/batch/users' do 
 	user_data = Hash[User.pluck(:id, :handle)]
+
+	users_by_year = User.pluck(:id, :year)
+	
+	# users_by_year.map! do |label, group|
+	# 	group.map!(&:id)
+	# end
+
+	p user_by_year
 	content_type :json
 	 {user_data: user_data}.to_json
 end

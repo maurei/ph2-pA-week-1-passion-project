@@ -71,7 +71,7 @@ fiscus = {
       password: "fiscus",
       email: "fiscus@mail.com",
       access_level: "superadmin",
-      year: 2012
+      year: 1923
 }
 
 users = [maurits, diederik, tom, jesse, arendo, haye, steven, marijn, fiscus]

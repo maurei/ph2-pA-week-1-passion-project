@@ -13,3 +13,6 @@ th {
     margin: 0 auto;
 }
 
+.panel-primary {
+	display: hidden;
+}

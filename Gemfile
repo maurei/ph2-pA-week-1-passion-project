@@ -16,6 +16,7 @@ gem 'activerecord', '~>4.1'
 gem 'rake'
 gem 'rest-client'
 gem 'bcrypt'
+gem 'shotgun'
 
 group :test do
   gem 'faker'
