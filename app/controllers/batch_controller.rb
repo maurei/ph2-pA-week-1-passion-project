@@ -2,9 +2,9 @@ require 'json'
 
 get "/batch/upload" do
   erb :'batches/upload'
-end 
+end
 
-post "/batch/upload" do 
+post "/batch/upload" do
   #   # response = {manipulations: parse_bill, user_data: user_data}.to_json
   bill_data = parse_bill.to_json
   session[:batch_id] = Batch.create(bill_data: bill_data).id
@@ -16,7 +16,7 @@ end
 
 
 get '/batch/new' do
-=begin 
+=begin
 expect ajax request to check if there is an open batch (which means bill has been uploaded)
 if so: return true. this triggers front end ajax load command.
 if not: return false. this triggers front end custom manipulation adder thing that im building right now
@@ -30,7 +30,7 @@ end
 get '/api/batch/new' do
 	if session[:batch_id]
 		manipulations = JSON.parse( Batch.find( session[:batch_id] ).bill_data )
-	end	
+	end
 	# user_data = Hash[User.pluck(:id, :handle)]
 
 	content_type :json
@@ -38,23 +38,18 @@ get '/api/batch/new' do
 	response = {manipulations: manipulations}.to_json
 end
 
-get '/api/batch/check' do 
+get '/api/batch/check' do
 	content_type :json
 	 (!!session[:batch_id]).to_json
 end
 
-get '/api/batch/users' do 
+get '/api/batch/users' do
 	user_data = Hash[User.pluck(:id, :handle)]
+	user_ids_by_year = group_by_year_flattened( User.pluck(:id, :year) )
 
-	users_by_year = User.pluck(:id, :year)
-	
-	# users_by_year.map! do |label, group|
-	# 	group.map!(&:id)
-	# end
 
-	p user_by_year
 	content_type :json
-	 {user_data: user_data}.to_json
+	 {user_data: user_data, user_id_by_year: user_ids_by_year}.to_json
 end
 
 post '/api/batch' do

@@ -35,7 +35,7 @@ module BatchTools
 	def add_to_batch(pre_manipulation)
 		p session[:batch_id]
 		pre_manipulation.merge!(batch_id: session[:batch_id])
-	end	
+	end
 
 	def close_batch_if_empty(post_manipulations)
 	 close_current_batch if post_manipulations.empty?
@@ -44,6 +44,20 @@ module BatchTools
 	def close_current_batch
 		session.delete(:batch_id)
 	end
+
+	def group_by_year_flattened(pluckdata)
+		grouped_by_year = pluckdata.group_by { |user| user[1] }
+		years = grouped_by_year.keys
+
+		years.each do |year|
+			grouped_by_year[year].map! { |x| x[0] }
+			grouped_by_year[year] = grouped_by_year[year].flatten
+		end
+		grouped_by_year
+	end
+
 end
+
+
 
 helpers BatchTools
