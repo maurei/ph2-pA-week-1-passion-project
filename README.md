@@ -69,11 +69,24 @@ My goal is to digitalize the XLS file by creating a fraternity bank account appl
 * maintenance stuff 
 
 
-
-## manipulation management
+## deleting manipulations 
 
 # todo
-* manipulation management
+	* delete manipulations, two tabs:
+		* batches: all batches of manipulations
+			* show batch' nicely (post-mvp)
+			* undo whole batch
+			* undo specific manipulations
+		* users: delete user specific manipulations
+			* show 
+# design
+
+
+
+
+## manipulation management (without deleting) DONE
+
+# todo
 	* update custom add:
 		* one row: ajax validation shit,
 		* one --> batch: (dont do this)

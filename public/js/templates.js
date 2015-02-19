@@ -1,7 +1,5 @@
 var populateSelect = function(all_users, manipulation){
-	var option = '';
-	// console.log(manipulation)
-	// console.log(all_users)
+	var option = '<option selected hidden value=""></option>';
 	var $selectList = $('<select class="form-control" id="user_id"></select>')
 	for (user_id in all_users){
 		if (user_id == manipulation.user_id){
@@ -29,20 +27,27 @@ var generateSuccessMessage = function(){
 };
 
 var generatePanelContent = function(){
-	console.log(arguments)
 	return $('<ul class="nav nav-tabs"><li role="presentation" id="smart-all-users"><a href="#">All users</a></li><li role="presentation" id="smart-per-year"><a href="#">Users selected by year</a></li></ul><div class="panel-body">Choose an option</div>')
 };	
 
 var allUsersTab = function(){
 
-	return $('<p>Prefill options:</p><form class="form-inline"><div class="form-group"><label for="date">Date</label><input type="email" class="form-control" id="issue_date" placeholder="2014/01/30"></div><div class="form-group"><label for="description">Description</label><input type="text" class="form-control" id="description" placeholder="Description..."size = 50></div><div class="form-group"><label for="amount">Amount</label><input type="text" class="form-control" id="amount" placeholder="$$$"></div></form><br><br><button type="button" class="btn btn-default" id="all-users-deploy"> Deploy! </button>')
+	return $('<p>Prefill options:</p><form class="form-inline" id="prefill"><div class="form-group"><label for="date">Date</label><input type="email" class="form-control" id="issue_date" placeholder="2014/01/30"></div><div class="form-group"><label for="description">Description</label><input type="text" class="form-control" id="description" placeholder="Description..."size = 50></div><div class="form-group"><label for="amount">Amount</label><input type="text" class="form-control" id="amount" placeholder="$$$"></div></form><br><br><button type="button" class="btn btn-default" id="all-users-deploy"> Deploy! </button>')
 };
 
-var perYearTab = function(){
-
-	return $('<p>Prefill options:</p><form class="form-inline"><div class="form-group"><label for="date">Date</label><input type="email" class="form-control" id="issue_date" placeholder="2014/01/30"></div><div class="form-group"><label for="description">Description</label><input type="text" class="form-control" id="description" placeholder="Description..."size = 50></div><div class="form-group"><label for="amount">Amount</label><input type="text" class="form-control" id="amount" placeholder="$$$"></div></form><div class="checkbox"><label><input type="checkbox"> 2014</label><label><input type="checkbox" id="testcheck"> 2013</label><label><input type="checkbox"> 2012</label><label><input type="checkbox"> 2011</label><label><input type="checkbox"> 2010</label></div><button type="button" class="btn btn-default" id="per-year-deploy"> Deploy! </button>')
+var perYearTab = function(years){
+	return $('<p>Prefill options:</p><form class="form-inline" id="prefill"><div class="form-group"><label for="date">Date</label><input type="email" class="form-control" id="issue_date" placeholder="2014/01/30"></div><div class="form-group"><label for="description">Description</label><input type="text" class="form-control" id="description" placeholder="Description..."size = 50></div><div class="form-group"><label for="amount">Amount</label><input type="text" class="form-control" id="amount" placeholder="$$$"></div></form>'+generateCheckBoxes(years).prop('outerHTML')+'<button type="button" class="btn btn-default" id="per-year-deploy"> Deploy! </button>')
 
 };
+
+var generateCheckBoxes = function(years){
+	var $checkBoxDiv = $('<div class="checkbox"></div>');
+	var option = '';
+	for (year in years){
+		option += '<label><input type="checkbox" year="'+year+'">'+year+'</label>'
+	}
+	return $checkBoxDiv.append(option)
+}
 
 
 // var array = $("input[type=checkbox]")

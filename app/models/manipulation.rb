@@ -9,7 +9,7 @@ class Manipulation < ActiveRecord::Base
   validates :issue_date, presence: true
   validates :action, presence: true
   validates :description, presence: true
-  validates :account, presence: true
+  validates :account_id, presence: true
 
 	def change_balance
 		self.account.method(self.action).call(self.amount)

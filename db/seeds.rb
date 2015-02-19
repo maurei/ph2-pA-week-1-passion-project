@@ -66,6 +66,87 @@ tom = {
 
 
 
+
+
+
+
+
+
+
+
+
+brackel = {
+      handle: "Tom Brackel",
+      password: "tom",
+      email: "tom@mail.com",
+      access_level: "member",
+      year: 2013
+}
+
+schultz = {
+      handle: "Lucas Schultz",
+      password: "lucas",
+      email: "lucas@mail.com",
+      access_level: "member",
+      year: 2013
+}
+
+mees = {
+      handle: "Mees Koningswijk",
+      password: "mees",
+      email: "mees@mail.com",
+      access_level: "member",
+      year: 2013
+}
+
+friso = {
+      handle: "Friso Hoving",
+      password: "friso",
+      email: "friso@mail.com",
+      access_level: "member",
+      year: 2013
+}
+
+teun = {
+      handle: "Teun Grijzenhout",
+      password: "teun",
+      email: "teun@mail.com",
+      access_level: "member",
+      year: 2013
+}
+
+richard = {
+      handle: "Richard bredeveld",
+      password: "richard",
+      email: "richard@mail.com",
+      access_level: "member",
+      year: 2013
+}
+
+yoloost = {
+      handle: "Joost Broekhoven",
+      password: "joost",
+      email: "joost@mail.com",
+      access_level: "member",
+      year: 2013
+}
+
+steve = {
+      handle: "Steve Nugteren",
+      password: "steve",
+      email: "steve@mail.com",
+      access_level: "member",
+      year: 2013
+}
+
+
+
+
+
+
+
+
+
 fiscus = {
       handle: "Fiscus",
       password: "fiscus",
@@ -74,7 +155,7 @@ fiscus = {
       year: 1923
 }
 
-users = [maurits, diederik, tom, jesse, arendo, haye, steven, marijn, fiscus]
+users = [maurits, diederik, tom, jesse, arendo, haye, steven, marijn, fiscus, brackel, schultz, mees, friso, teun, richard, yoloost, steve]
 
 users.each {|x| User.create(x) }
 

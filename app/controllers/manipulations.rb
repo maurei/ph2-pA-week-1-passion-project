@@ -1,11 +1,3 @@
-# error 404 do
-# 	halt 404, {'Content-Type' => 'text/plain'}, 'revenge'
-# end
-not_found do
-"404 error"
-end
-## member routes
-
 
 get '/manipulations' do 
 	@user = User.find(session[:user_id])
@@ -22,8 +14,6 @@ get '/manipulations' do
 	
 end
 
-
-## admin routes
 
 get '/manipulations/new' do
   @users = User.where(access_level: "member")

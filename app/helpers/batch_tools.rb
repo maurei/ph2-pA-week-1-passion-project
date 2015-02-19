@@ -25,7 +25,12 @@ module BatchTools
 
 	def reformat_post_data(post_manipulation)
 		pre_object = hashify(post_manipulation)
-		account_id = Account.by_user_id(pre_object.delete(:user_id)).id
+		account_of_user = Account.by_user_id(pre_object.delete(:user_id))
+		if account_of_user.class == Account
+			account_id = account_of_user.id
+		else
+			account_id = nil
+		end
 		pre_object.merge!(account_id: account_id)
 		pre_object.delete(:row_id)
 		pre_object.delete(:error_messages)
@@ -33,7 +38,7 @@ module BatchTools
 	end
 
 	def add_to_batch(pre_manipulation)
-		p session[:batch_id]
+		session[:batch_id] = session[:batch_id] || Batch.create().id 
 		pre_manipulation.merge!(batch_id: session[:batch_id])
 	end
 
