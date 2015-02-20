@@ -49,60 +49,33 @@ var generateCheckBoxes = function(years){
 	return $checkBoxDiv.append(option)
 }
 
+// Need to wrap above functions in container as well. Not a priority for now.
 
-// var array = $("input[type=checkbox]")
-// for (var i = 0; i < array.length; i++){
-//  console.log(array.eq(i).prop("checked")) }
+var EditManipulationsTemplates = function(){
 
-// $('input:checkbox:checked')
+	this.userOverview = function(){
+		return 'fooHTML1'
+	};
+	this.generateUserOverViewPanels = function(){
+		return 'Generator stuff for fooHTML1'
+	};
+	this.batchOverview = function(){return 'fooHTML2'}
+	this.generateBatchOverViewPanels = function(){return 'Generator stuff for fooHTML2'}
 
-// <form class="form-inline">
-// 	<div class="form-group">
-// 		<label for="date">Date</label>
-// 		<input type="email" class="form-control" id="issue_date" placeholder="2014/01/30">
-// 	</div>
-
-// 	<div class="form-group">
-// 	<label for="description">Description</label>
-// 	<input type="text" class="form-control" id="description" placeholder="Description..."size = 50>
-// 	</div>
-
-// 	<div class="form-group">
-// 	<label for="amount">Amount</label>
-// 	<input type="text" class="form-control" id="amount" placeholder="$$$">
-// </div>
-// </form>
+};
 
 
-/*
-'<p>Generator rows for:</p>
-<button type="button" class="btn btn-default" id="smart-add-all-users">All users</button><button type="button" class="btn btn-default" id="smart-add-per-year">Selected years</button>
-<div id="smart-panel-content">
-</div>
-<button type="button" class="btn btn-default" id="smart-submit">Generate</button>
-'
 
 
-*/
 
-/*
-<div class="list-group-item" user-id="' + manipulations[i].user_id + '">
-		<form class="form-inline">
-		  <div class="form-group">
-		    <label for="handle">Name</label>
-		    '+populateSelect(manipulations, manipulations[i]).prop("outerHTML")+'
-		  </div>
-		  <div class="form-group">
-		    <label for="date">Date</label>
-		    <input type="email" class="form-control" id="date" placeholder="2014/01/30" value="' + manipulations[i].issue_date + '">
-		  </div>
-		  <div class="form-group">
-		    <label for="description">Description</label>
-		    <input type="text" class="form-control" id="description" placeholder="Description..." value="' + manipulations[i].description + '">
-		  </div>		  
-		  <div class="form-group">
-		    <label for="amount">Amount</label>
-		    <input type="text" class="form-control" id="amount" placeholder="$$$" value="' + manipulations[i].amount + '">
-		  </div>
-		</form>
-</div>*/
+
+
+// <ul class="list-group" >
+//   <li class="list-group-item">
+//     <span class="badge">14</span>
+//     Cras justo odio
+//   </li>
+// </ul>
+
+
+

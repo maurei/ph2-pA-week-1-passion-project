@@ -4,8 +4,19 @@ get "/batch/upload" do
   erb :'batches/upload'
 end
 
+get '/batch/edit' do 
+	manipulations = Manipulation.all
+
+	@batches = Batch.all.to_json
+	@manipulations_per_batch = manipulations.group_by{ |manipulation| manipulation.batch_id }.to_json
+
+	@users = User.all.to_json
+	@manipulations_per_user = manipulations.group_by{ |manipulation| manipulation.account_id }.to_json
+
+	erb :'batches/edit'
+end
+
 post "/batch/upload" do
-  #   # response = {manipulations: parse_bill, user_data: user_data}.to_json
   bill_data = parse_bill.to_json
   session[:batch_id] = Batch.create(bill_data: bill_data).id
 
@@ -16,7 +27,7 @@ end
 
 
 get '/batch/new' do
-	erb :'batches/edit_batch'
+	erb :'batches/new'
 end
 
 get '/api/batch/new' do
@@ -34,6 +45,7 @@ get '/api/batch/check' do
 end
 
 get '/api/batch/users' do
+	p User.group(:year)
 	user_data = Hash[User.pluck(:id, :handle)]
 	user_ids_by_year = group_by_year_flattened( User.pluck(:id, :year) )
 

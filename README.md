@@ -80,6 +80,18 @@ My goal is to digitalize the XLS file by creating a fraternity bank account appl
 		* users: delete user specific manipulations
 			* show 
 # design
+* tab all users
+	* bootstrap "linked items" list with members sorted per year
+	* on click: dump div content, ajax load manipulations of selected user
+	* generate panel for every manipulation, including undo button
+	* back button at the bottem of div.
+* tab all batches
+  * bootstrap "badges" list with badge amount equal to amount of assiociated manipulations.
+  * on click: ajax load manipulations of batch, generate panel for every manipulation of that batch.
+  * stuff all those panels in a div which slides down underneath batch that is clicked. 
+  * slide up button some where.
+  
+
 
 
 

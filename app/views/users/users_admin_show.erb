@@ -13,21 +13,11 @@
 		<li><a href="/users">Edit/Delete members</a></li>
 		<br>
 		<li><a href="/batch/upload">Import a bill</a></li>
-		<li><a href="/batch/new">Custom manipulations</a></li>
-		<p> under dev below </p>
-		<li>Edit manipulations of:
-		<form action='/manipulations/edit' method='post'>
-  		<select name='user_id'>
-   			<% @users.each do |user| %>
-					<option value="<%= user.id %>"> <%=user.handle%> </option>
-    		<% end %>
-  		</select><input type='submit' value='go'>
-  	</form>
-		</li>
+		<li><a href="/batch/new">Custom batch</a></li>
+		<li><a href="/batch/edit">Edit batches</a></li>
 	</ul>
 
 
-	<form action='/logout' method='get'>
-	  <input type='submit' value='logout'>
-	</form>
 </div>
+
+

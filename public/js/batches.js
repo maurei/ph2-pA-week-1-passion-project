@@ -224,7 +224,7 @@ function manipulationsView(){
               listenSmartPanelButton()
             };
           },
-          error: function(){console.log('For some reason, I can not check if there is a batch')}
+        error: function(){console.log('For some reason, I can not check if there is a batch')}
         });
     };
 

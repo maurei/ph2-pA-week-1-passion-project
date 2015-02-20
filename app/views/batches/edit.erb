@@ -1,0 +1,14 @@
+<ul class="nav nav-tabs" id="tabMenu">
+	<li role="presentation" id="users"><a href="#">Manipulations per user</a></li>
+	<li role="presentation" id="batches"><a href="#">Manipulations per batch</a></li></ul>
+<div class="panel-body" id="manipulations_menu">Choose an option</div>
+
+<script>
+var batches = <%= @batches %>;
+var users = <%= @users %>;
+var manipulations_per_user = <%= @manipulations_per_user %>;
+var manipulations_per_batch = <%= @manipulations_per_batch %>;
+
+</script>
+<script src="../js/templates.js"></script>
+<script src="../js/edit_manipulations.js"></script>
