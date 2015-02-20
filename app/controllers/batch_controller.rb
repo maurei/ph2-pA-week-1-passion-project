@@ -9,8 +9,8 @@ get '/batch/edit' do
 
 	@batches = Batch.all.to_json
 	@manipulations_per_batch = manipulations.group_by{ |manipulation| manipulation.batch_id }.to_json
-
-	@users = User.all.to_json
+	@user_ids_by_year = group_by_year_flattened( User.pluck(:id, :year) ).to_json
+	@users = Hash[User.pluck(:id, :handle)].to_json
 	@manipulations_per_user = manipulations.group_by{ |manipulation| manipulation.account_id }.to_json
 
 	erb :'batches/edit'

@@ -51,31 +51,62 @@ var generateCheckBoxes = function(years){
 
 // Need to wrap above functions in container as well. Not a priority for now.
 
+
+
+
+
 var EditManipulationsTemplates = function(){
 
-	this.userOverview = function(){
-		return 'fooHTML1'
+
+
+	this.userOverview = function(userModel){
+		var users = userModel.getUsers()
+		var usersByYear = userModel.getUsersByYear()
+		var $overview = $('<div class="list-group">'+this.generateUserOverviewPanels()+'</div>')
+		return $overview
 	};
-	this.generateUserOverViewPanels = function(){
-		return 'Generator stuff for fooHTML1'
+	this.generateUserOverviewPanels = function(){
+		var	overviewPanels = '';
+		for (year in usersByYear){
+			overviewPanels += '<a href="#" class="list-group-item active"> Year: '+year+'</a>'
+			$.each(usersByYear[year], function(index, user_id){
+				overviewPanels += '<a href="#" class="list-group-item" id="user-overview-panel" user_id="'+user_id+'">'+users[user_id]+'</a>'
+			})
+		}
+		return overviewPanels
 	};
-	this.batchOverview = function(){return 'fooHTML2'}
-	this.generateBatchOverViewPanels = function(){return 'Generator stuff for fooHTML2'}
+
+	this.manipulationPanels = function(manipulations){
+		var $wrapper = $( '<div id="manipulationPanelWrap" style="display:none"></div>' )
+		var panels = '';
+		var generateManipulationPanel = this.generateManipulationPanel
+		$.each(manipulations, function(index, manipulation){
+			panels += '<div class="panel panel-default"><div class="panel-body">'+generateManipulationPanel( manipulation )+'<div class="btn-group"><button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Undo <span class="caret"></span></button><ul class="dropdown-menu" role="menu"><li id="undo_manipulation_button" manipulation_id = "'+manipulation.id+'"><a href="#">Confirm</a></li></ul></div></div></div>'
+		})
+		return $wrapper.html(panels)
+	};
+	this.generateManipulationPanel = function(manipulation){
+		return 'Nice Manipulation layout comes here<br>'+manipulation.description
+	}
+
+	this.batchOverview = function(batchModel){
+		var batches = batchModel.getBatches()
+		var manipulationsPerBatch = batchModel.perBatch()
+		var $overview = $('<ul class="list-group">'+this.generateBatchOverviewPanels()+'</ul>')
+		return $overview
+	};
+	this.generateBatchOverviewPanels = function(){
+		var overviewPanels = '';
+		$.each(batches, function(index, element){
+			overviewPanels += '<li class="list-group-item" id="batch-row" batch_id = "'+element.id+'" revealed="false"><span class="badge">'+manipulationsPerBatch[element.id].length+'</span>Batch name:'+element.batch_name+'<div class="btn-group"><button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Undo <span class="caret"></span></button><ul class="dropdown-menu" role="menu"><li id="undo_batch_button"><a href="#">Confirm. Undoing a whole batch is irreversible!</a></li></ul></div></li>'
+		})
+		return overviewPanels
+	};
+
+
 
 };
 
-
-
-
-
-
-
-// <ul class="list-group" >
-//   <li class="list-group-item">
-//     <span class="badge">14</span>
-//     Cras justo odio
-//   </li>
-// </ul>
 
 
 

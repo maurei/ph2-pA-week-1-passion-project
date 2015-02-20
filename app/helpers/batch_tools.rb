@@ -43,11 +43,14 @@ module BatchTools
 	end
 
 	def close_batch_if_empty(post_manipulations)
-	 close_current_batch if post_manipulations.empty?
+		if session[:batch_id]
+	 		close_current_batch if post_manipulations.empty?
+	 	end
 	end
 
 	def close_current_batch
 		session.delete(:batch_id)
+		clean_up_empty_batches
 	end
 
 	def group_by_year_flattened(pluckdata)
@@ -59,6 +62,12 @@ module BatchTools
 			grouped_by_year[year] = grouped_by_year[year].flatten
 		end
 		grouped_by_year
+	end
+
+	def clean_up_empty_batches
+		Batch.all.each do |batch|
+			batch.destroy unless batch.manipulations.length > 0 
+		end
 	end
 
 
