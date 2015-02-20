@@ -35,32 +35,34 @@ function manipulationsView(){
     this.getSelectorTypes = function(){
     	return 'select, input'
     };
-    this.slideSmartPanel = function(event){
+    this.slideSmartPanel = function(event, userModel){
       if($smartAddPanel.css('display') === 'none'){
         $panelContent = generatePanelContent()
 
         $smartAddPanel.html( $panelContent )
         $smartAddPanel.slideDown( "slow" )
 
-        $panelContent.on('click', '#smart-all-users, #smart-per-year', {years: event.data.years}, this.toggleSmartPanel )
+        $panelContent.on('click', '#smart-all-users, #smart-per-year', function(event){ 
+          toggleSmartPanel(event,userModel);
+        });
       }
       else{
         $smartAddPanel.slideUp("slow")
       };
     };
 
-    this.toggleSmartPanel = function(event){
-
-      $(this).siblings('li').removeClass('active')
-      $(this).addClass('active')
+    function toggleSmartPanel(event,userModel){
+      var tab = $(event.target).closest('li')
+      $(tab).siblings('li').removeClass('active')
+      $(tab).addClass('active')
       $panelContent = $smartAddPanel.find('.panel-body')
 
-      var tabChoice = $(this).attr('id')
+      var tabChoice = $(tab).attr('id')
       if (tabChoice === "smart-all-users"){
         $panelContent.html( allUsersTab() )
       }
       else if (tabChoice === "smart-per-year"){
-        $panelContent.html( perYearTab(event.data.years) )
+        $panelContent.html( perYearTab(userModel.getUsersPerYear()) )
       }
       massEditor.listenDeployButton(tabChoice)
     }
@@ -242,9 +244,19 @@ function manipulationsView(){
     })
    };
 
-   var listenSmartPanelButton = function(){
-    view.$smartAdd.on( 'click', {years: userModel.getUsersPerYear() }, view.slideSmartPanel.bind(view) )
+   var controllerSlideSmartPanel = function(event){
+     view.slideSmartPanel(event, userModel);
    }
+
+   var listenSmartPanelButton = function(){
+    view.$smartAdd.on( 'click', controllerSlideSmartPanel );
+   }
+
+
+
+   // var listenSmartPanelButton = function(){
+   //  view.$smartAdd.on( 'click', {years: userModel.getUsersPerYear() }, view.slideSmartPanel.bind(view) )
+   // }
 
 
 
