@@ -5,16 +5,30 @@ get "/batch/upload" do
 end
 
 get '/batch/edit' do 
-	manipulations = Manipulation.all
-
+	manipulations = Manipulation.all.map do |manipulation|
+		add_user_id(manipulation)
+	end
+	@manipulations = manipulations.to_json
 	@batches = Batch.all.to_json
-	@manipulations_per_batch = manipulations.group_by{ |manipulation| manipulation.batch_id }.to_json
-	@user_ids_by_year = group_by_year_flattened( User.pluck(:id, :year) ).to_json
 	@users = Hash[User.pluck(:id, :handle)].to_json
-	@manipulations_per_user = manipulations.group_by{ |manipulation| manipulation.account_id }.to_json
-
+	@user_ids_by_year = group_by_year_flattened( User.pluck(:id, :year) ).to_json
+	
 	erb :'batches/edit'
 end
+
+delete '/manipulations/:id' do |id|
+
+	Manipulation.find(id).destroy #notice callback in model that reverses balance effect
+
+end
+
+delete '/batch/:id' do |id|
+
+	Batch.find(id).destroy
+
+end
+
+
 
 post "/batch/upload" do
   bill_data = parse_bill.to_json

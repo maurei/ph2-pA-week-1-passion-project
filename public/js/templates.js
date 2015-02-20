@@ -59,22 +59,25 @@ var EditManipulationsTemplates = function(){
 
 
 
-	this.userOverview = function(userModel){
-		var users = userModel.getUsers()
-		var usersByYear = userModel.getUsersByYear()
-		var $overview = $('<div class="list-group">'+this.generateUserOverviewPanels()+'</div>')
+	this.userOverview = function(manipulationsModel){
+		var users = manipulationsModel.getUsers()
+		var usersByYear = manipulationsModel.getUsersByYear()
+		var $overview = $('<div class="list-group">'+this.generateUserOverviewPanels(users, usersByYear)+'</div>')
 		return $overview
 	};
-	this.generateUserOverviewPanels = function(){
+	this.generateUserOverviewPanels = function(users, usersByYear){
 		var	overviewPanels = '';
 		for (year in usersByYear){
 			overviewPanels += '<a href="#" class="list-group-item active"> Year: '+year+'</a>'
 			$.each(usersByYear[year], function(index, user_id){
-				overviewPanels += '<a href="#" class="list-group-item" id="user-overview-panel" user_id="'+user_id+'">'+users[user_id]+'</a>'
+				overviewPanels += '<a href="#" class="list-group-item" revealed="false" id="user-row" user_id="'+user_id+'">'+users[user_id]+'</a>'
 			})
 		}
 		return overviewPanels
 	};
+
+
+
 
 	this.manipulationPanels = function(manipulations){
 		var $wrapper = $( '<div id="manipulationPanelWrap" style="display:none"></div>' )
@@ -89,13 +92,16 @@ var EditManipulationsTemplates = function(){
 		return 'Nice Manipulation layout comes here<br>'+manipulation.description
 	}
 
-	this.batchOverview = function(batchModel){
-		var batches = batchModel.getBatches()
-		var manipulationsPerBatch = batchModel.perBatch()
-		var $overview = $('<ul class="list-group">'+this.generateBatchOverviewPanels()+'</ul>')
+
+
+
+	this.batchOverview = function(manipulationsModel){
+		var $overview = $('<ul class="list-group">'+this.generateBatchOverviewPanels(manipulationsModel)+'</ul>')
 		return $overview
 	};
-	this.generateBatchOverviewPanels = function(){
+	this.generateBatchOverviewPanels = function(manipulationsModel){
+		var batches = manipulationsModel.getBatches()
+		var manipulationsPerBatch = manipulationsModel.perBatch()
 		var overviewPanels = '';
 		$.each(batches, function(index, element){
 			overviewPanels += '<li class="list-group-item" id="batch-row" batch_id = "'+element.id+'" revealed="false"><span class="badge">'+manipulationsPerBatch[element.id].length+'</span>Batch name:'+element.batch_name+'<div class="btn-group"><button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Undo <span class="caret"></span></button><ul class="dropdown-menu" role="menu"><li id="undo_batch_button"><a href="#">Confirm. Undoing a whole batch is irreversible!</a></li></ul></div></li>'

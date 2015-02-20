@@ -70,6 +70,12 @@ module BatchTools
 		end
 	end
 
+	def add_user_id(manipulation)
+ 		updated_manipulation = manipulation.to_hash
+		updated_manipulation["user_id"] = manipulation.account.user_id
+		return updated_manipulation
+	end
+
 
 
 end

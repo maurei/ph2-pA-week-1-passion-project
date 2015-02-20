@@ -26,6 +26,11 @@ class Manipulation < ActiveRecord::Base
 		return :deposit  if operation == "withdraw"
 	end
 
+	def to_hash
+    hash = {}; self.attributes.each { |k,v| hash[k] = v }
+    return hash
+  end
+
 end
 
 

@@ -4,12 +4,13 @@
 <div class="panel-body" id="manipulations_menu">Choose an option</div>
 
 <script>
+var manipulations = <%= @manipulations %>
 var batches = <%= @batches %>;
 var users = <%= @users %>;
-var manipulationsPerUser = <%= @manipulations_per_user %>;
-var manipulationsPerBatch = <%= @manipulations_per_batch %>;
 var usersByYear = <%= @user_ids_by_year %>
 
+// var manipulationsPerUser = <%= @manipulations_per_user %>;
+// var manipulationsPerBatch = <%= @manipulations_per_batch %>;
 </script>
 <script src="../js/templates.js"></script>
 <script src="../js/edit_manipulations.js"></script>
