@@ -45,7 +45,7 @@ get '/api/batch/check' do
 end
 
 get '/api/batch/users' do
-	p User.group(:year)
+
 	user_data = Hash[User.pluck(:id, :handle)]
 	user_ids_by_year = group_by_year_flattened( User.pluck(:id, :year) )
 
