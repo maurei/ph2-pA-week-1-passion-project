@@ -1,42 +1,27 @@
+var memberPage = angular.module('memberPage', ['ui.router']);
 
+console.log('im alive')
 
-var memberPage = angular.module('memberPage', ['ngRoute']);
+memberPage.config(['$stateProvider', '$urlRouterProvider', function($stateProvider,   $urlRouterProvider){
 
-memberPage.config(function ($routeProvider){
+		$urlRouterProvider.otherwise('/'),
 
-		$routeProvider
-
-			.when('/', {
-				templateUrl: '../pages/dashboard.html',
-				controller: 'dashBoardController'
+		$stateProvider
+			.state('userpage', {
+					url: '',
+					templateUrl: '../ng/templates/dashboard.html',
+					controller: 'dashBoardController'
 			})
-
-			.when('/PD', {
-				templateUrl: '../pages/PD.html',
-				controller: 'PDController'
-			})
-
-});
-
-memberPage.service('iniData', function() {
-
-	this.id = user.id
-	this.handle = user.handle;
-	this.balance = account.balance;
-
-});
-
-
-memberPage.controller('navBarController', ['$scope', '$log', 'iniData', function($scope, $log, iniData){
-
-	$scope.handle = iniData.handle
-
-
+			.state('')
 }]);
 
 
-memberPage.controller('dashBoardController', ['$scope', '$log', 'iniData', function($scope, $log, iniData){
 
+
+
+memberPage.controller('dashBoardController', ['$scope', '$log', function($scope, $log){
+
+console.log('dashboard is launched!')
 
 }]);
 

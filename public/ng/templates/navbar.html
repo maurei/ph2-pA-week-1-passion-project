@@ -1,0 +1,26 @@
+	get '/' do
+	 redirect "/login"
+	end
+
+	get '/login' do
+	  redirect_unless_logged_in
+	  erb :login
+	end
+
+	post '/login' do
+	  redirect '/login' unless authenticate_user(params)
+	  if correct_password
+			set_session
+	    redirect "/users/#{session[:user_id]}"
+	  else
+	    redirect '/login'
+	  end
+	end
+
+	get '/users/:user_id' do |id|
+			@user = User.find(id)
+			erb :'users/index'
+	end
+
+
+

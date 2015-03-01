@@ -9,6 +9,7 @@ end
 
 get '/' do
  redirect "/login"
+ erb :'users/users_show'
 end
 
 get '/login' do
@@ -36,3 +37,19 @@ get '/logout' do
   redirect '/login'
 end
 
+
+
+# <!-- <div class = "container">
+#   <h1>Welcome <%= @user.handle %></h1>
+#   <br>
+#   <br>
+#   <h1> Your accounts: </h1>
+#   <p> you only have one, dumbass.. </p>
+#   <a href="/manipulations"> Show your manipulations </a>
+#   <br> Balance: <%= @user.account.balance %>
+#   <form action='/logout' method='get'>
+#     <input type='submit' value='logout'>
+#   </form>
+# </div>
+
+#  -->
